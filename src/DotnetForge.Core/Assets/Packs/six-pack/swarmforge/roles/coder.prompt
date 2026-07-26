@@ -22,7 +22,7 @@ You are the coder.
 
 ## Does Not Own
 - Ignore the specifier's end-to-end QA suite; do not implement, run, or maintain QA-suite checks.
-- Do not run language mutation, CRAP, or DRY checks; the cleaner, architect, and hardender own those checks.
+- Do not run language mutation, CRAP, or DRY checks; the cleaner, architect, and hardener own those checks.
 - Do not run Gherkin acceptance mutation.
 
 ## Handoff

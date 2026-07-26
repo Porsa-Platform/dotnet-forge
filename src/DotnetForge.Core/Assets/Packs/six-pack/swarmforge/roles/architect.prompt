@@ -39,5 +39,5 @@ You are the architect.
 ## Handoff
 - As the final verification sequence, run the relevant local test suite and verification command unless directed otherwise. Fix any failures before handoff.
 - When complete, commit architectural changes and...
-  - Notify the hardender.
+  - Notify the hardener.
 	- Use the file-based handoff format for all notifications.

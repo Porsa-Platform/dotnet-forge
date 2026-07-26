@@ -47,13 +47,13 @@ public sealed class DefaultPackRegistry : IPackRegistry
                 PackIds.SixPack,
                 "Six Pack",
                 "Full workflow with separated quality gates.",
-                "specifier -> coder -> cleaner -> architect -> hardender -> QA",
+                "specifier -> coder -> cleaner -> architect -> hardener -> QA",
                 [
                     new RoleDefinition("specifier", "codex", "master", ReceiveMode.Task),
                     new RoleDefinition("coder", "codex", "coder", ReceiveMode.Task),
                     new RoleDefinition("cleaner", "codex", "cleaner", ReceiveMode.Batch),
                     new RoleDefinition("architect", "codex", "architect", ReceiveMode.Batch),
-                    new RoleDefinition("hardender", "codex", "hardender", ReceiveMode.Batch),
+                    new RoleDefinition("hardener", "codex", "hardener", ReceiveMode.Batch),
                     new RoleDefinition("QA", "codex", "QA", ReceiveMode.Batch),
                 ]),
         };

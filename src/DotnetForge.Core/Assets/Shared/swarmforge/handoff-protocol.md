@@ -55,7 +55,7 @@ normalized mode into `.swarmforge/roles.tsv`, and agent-facing receive helpers
 read that runtime file rather than reparsing `swarmforge.conf`.
 
 Use `batch` for roles that should consume equal-priority queued handoffs as a
-single unit, such as six-pack `cleaner`, `architect`, `hardender`, and `QA`,
+single unit, such as six-pack `cleaner`, `architect`, `hardener`, and `QA`,
 and four-pack `architect`.
 
 ## Filename Format
@@ -168,7 +168,7 @@ Examples:
 - `four-pack`: `specifier` -> `coder` -> `refactorer` -> `architect` ->
   `specifier`; each intermediate role always forwards to the next role in the
   chain.
-- `six-pack`: `specifier` -> `coder` -> `cleaner` -> `architect` -> `hardender`
+- `six-pack`: `specifier` -> `coder` -> `cleaner` -> `architect` -> `hardener`
   -> `QA`; each intermediate role always forwards to the next role in the
   chain.
 

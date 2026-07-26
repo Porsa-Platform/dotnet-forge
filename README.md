@@ -94,7 +94,7 @@ Full quality-gate flow.
 Flow:
 
 ```text
-specifier -> coder -> cleaner -> architect -> hardender -> QA
+specifier -> coder -> cleaner -> architect -> hardener -> QA
 ```
 
 ## Commands
