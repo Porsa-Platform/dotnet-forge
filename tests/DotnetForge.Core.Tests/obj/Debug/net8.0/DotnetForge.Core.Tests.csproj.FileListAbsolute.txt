@@ -1,7 +1,0 @@
-/home/runner/work/dotnet-forge/dotnet-forge/tests/DotnetForge.Core.Tests/bin/Debug/net8.0/.msCoverageSourceRootsMapping_DotnetForge.Core.Tests
-/home/runner/work/dotnet-forge/dotnet-forge/tests/DotnetForge.Core.Tests/obj/Debug/net8.0/DotnetForge.Core.Tests.csproj.AssemblyReference.cache
-/home/runner/work/dotnet-forge/dotnet-forge/tests/DotnetForge.Core.Tests/obj/Debug/net8.0/DotnetForge.Core.Tests.GeneratedMSBuildEditorConfig.editorconfig
-/home/runner/work/dotnet-forge/dotnet-forge/tests/DotnetForge.Core.Tests/obj/Debug/net8.0/DotnetForge.Core.Tests.AssemblyInfoInputs.cache
-/home/runner/work/dotnet-forge/dotnet-forge/tests/DotnetForge.Core.Tests/obj/Debug/net8.0/DotnetForge.Core.Tests.AssemblyInfo.cs
-/home/runner/work/dotnet-forge/dotnet-forge/tests/DotnetForge.Core.Tests/obj/Debug/net8.0/DotnetForge.Core.Tests.csproj.CoreCompileInputs.cache
-/home/runner/work/dotnet-forge/dotnet-forge/tests/DotnetForge.Core.Tests/obj/Debug/net8.0/DotnetForge.Core.Tests.sourcelink.json

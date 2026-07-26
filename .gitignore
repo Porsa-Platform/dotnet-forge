@@ -1,0 +1,7 @@
+**/bin/
+**/obj/
+.swarmforge/
+.worktrees/
+swarmforge/
+close-swarm
+artifacts/

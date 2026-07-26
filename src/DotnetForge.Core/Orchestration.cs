@@ -307,7 +307,10 @@ public sealed class RunOrchestrator(
         var effectiveConfiguration = await effectiveConfigurationService.ResolveAsync(options, cancellationToken);
         var paths = ProjectPaths.For(effectiveConfiguration.WorkingDirectory);
         packMaterializer.Materialize(effectiveConfiguration);
-        workspacePreparationService.Prepare(effectiveConfiguration);
+        if (!effectiveConfiguration.DryRun)
+        {
+            workspacePreparationService.Prepare(effectiveConfiguration);
+        }
         runtimeStateStore.Write(effectiveConfiguration);
         var runtimeRoles = runtimeStateStore.LoadRoles(effectiveConfiguration.WorkingDirectory);
         var executedCommands = new List<string>();
