@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\DotnetForge.Core\DotnetForge.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ConsoleAppFramework" Version="5.7.13" />
+    <PackageReference Include="Spectre.Console" Version="0.57.2" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>DotnetForge.Cli</RootNamespace>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>dotnet-forge</ToolCommandName>
+    <PackageId>dotnet-forge</PackageId>
+    <Description>.NET port of SwarmForge with runtime pack toggles.</Description>
+    <PackageOutputPath>../../artifacts/packages</PackageOutputPath>
+  </PropertyGroup>
+</Project>

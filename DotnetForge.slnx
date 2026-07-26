@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DotnetForge.Cli/DotnetForge.Cli.csproj" />
+    <Project Path="src/DotnetForge.Core/DotnetForge.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DotnetForge.Core.Tests/DotnetForge.Core.Tests.csproj" />
+  </Folder>
+</Solution>
