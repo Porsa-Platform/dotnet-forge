@@ -16,8 +16,8 @@ public sealed class HandoffWorkflowTests
             new ProjectConfiguration(),
             new DefaultPackRegistry().Get(PackIds.TwoPack),
             "codex",
-            attach: false,
-            dryRun: true);
+            Attach: false,
+            DryRun: true);
         runtimeStateStore.Write(effectiveConfiguration);
 
         var coderInbox = Path.Combine(root, ".swarmforge", "handoffs", "inbox", "new");
@@ -55,8 +55,8 @@ public sealed class HandoffWorkflowTests
             new ProjectConfiguration(),
             new DefaultPackRegistry().Get(PackIds.TwoPack),
             "codex",
-            attach: false,
-            dryRun: true));
+            Attach: false,
+            DryRun: true));
 
         var draftPath = Path.Combine(root, "draft.txt");
         File.WriteAllText(draftPath, string.Join(Environment.NewLine,

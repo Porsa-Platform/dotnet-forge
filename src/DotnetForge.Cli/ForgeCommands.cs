@@ -1,3 +1,4 @@
+using ConsoleAppFramework;
 using DotnetForge.Core;
 using Spectre.Console;
 
@@ -6,7 +7,6 @@ namespace DotnetForge.Cli;
 public sealed class ForgeCommands(
     IPackRegistry packRegistry,
     ConfigurationWorkflowService configurationWorkflowService,
-    EffectiveConfigurationService effectiveConfigurationService,
     RunOrchestrator runOrchestrator,
     StopOrchestrator stopOrchestrator,
     HandoffService handoffService,

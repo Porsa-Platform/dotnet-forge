@@ -87,6 +87,11 @@ public sealed class PackMaterializer(IPackRegistry packRegistry)
 
     private static void TryMakeExecutable(string path)
     {
+        if (OperatingSystem.IsWindows())
+        {
+            return;
+        }
+
         try
         {
             File.SetUnixFileMode(path, UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute |
@@ -220,9 +225,10 @@ public sealed class WorkspacePreparationService(ICommandRunner commandRunner)
     private void EnsureRuntimeIgnore(ProjectPaths paths)
     {
         var result = commandRunner.Run("git", ["-C", paths.WorkingDirectory, "rev-parse", "--git-path", "info/exclude"]);
-        var excludeFile = Path.IsPathRooted(result.StandardOutput)
-            ? result.StandardOutput
-            : Path.Combine(paths.WorkingDirectory, result.StandardOutput);
+        var excludeRelativePath = string.IsNullOrWhiteSpace(result.StandardOutput) ? Path.Combine(".git", "info", "exclude") : result.StandardOutput;
+        var excludeFile = Path.IsPathRooted(excludeRelativePath)
+            ? excludeRelativePath
+            : Path.Combine(paths.WorkingDirectory, excludeRelativePath);
         Directory.CreateDirectory(Path.GetDirectoryName(excludeFile)!);
         var existing = File.Exists(excludeFile) ? File.ReadAllLines(excludeFile).ToHashSet(StringComparer.Ordinal) : [];
         using var writer = File.AppendText(excludeFile);

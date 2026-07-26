@@ -279,7 +279,12 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
         Directory.CreateDirectory(Path.GetDirectoryName(sequenceFile)!);
         var lockFile = sequenceFile + ".lock";
         using var stream = new FileStream(lockFile, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
-        stream.Lock(0, 0);
+        var useFileLock = !OperatingSystem.IsMacOS();
+        if (useFileLock)
+        {
+            stream.Lock(0, 0);
+        }
+
         try
         {
             var current = File.Exists(sequenceFile) && int.TryParse(File.ReadAllText(sequenceFile, Encoding.UTF8), out var parsed) ? parsed : 0;
@@ -289,7 +294,10 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
         }
         finally
         {
-            stream.Unlock(0, 0);
+            if (useFileLock)
+            {
+                stream.Unlock(0, 0);
+            }
         }
     }
 

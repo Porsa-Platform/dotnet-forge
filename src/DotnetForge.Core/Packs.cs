@@ -73,6 +73,12 @@ public sealed class DefaultPackRegistry : IPackRegistry
 
     private static (IReadOnlyList<PackAsset>, IReadOnlyDictionary<string, IReadOnlyList<PackAsset>>) LoadAssets()
     {
+        var outputAssetsDirectory = Path.Combine(AppContext.BaseDirectory, "Assets");
+        if (Directory.Exists(outputAssetsDirectory))
+        {
+            return LoadFromDirectory(outputAssetsDirectory);
+        }
+
         var assembly = Assembly.GetExecutingAssembly();
         var allAssets = assembly
             .GetManifestResourceNames()
@@ -81,10 +87,24 @@ public sealed class DefaultPackRegistry : IPackRegistry
             {
                 using var stream = assembly.GetManifestResourceStream(name) ?? throw new InvalidOperationException($"Missing resource {name}.");
                 using var reader = new StreamReader(stream, Encoding.UTF8);
-                return new PackAsset(name[ResourcePrefix.Length..].Replace('\', '/'), reader.ReadToEnd());
+                return new PackAsset(name[ResourcePrefix.Length..].Replace('\\', '/'), reader.ReadToEnd());
             })
             .ToArray();
 
+        return SplitAssets(allAssets);
+    }
+
+    private static (IReadOnlyList<PackAsset>, IReadOnlyDictionary<string, IReadOnlyList<PackAsset>>) LoadFromDirectory(string assetsDirectory)
+    {
+        var allAssets = Directory.GetFiles(assetsDirectory, "*", SearchOption.AllDirectories)
+            .Select(path => new PackAsset(Path.GetRelativePath(assetsDirectory, path).Replace('\\', '/'), File.ReadAllText(path, Encoding.UTF8)))
+            .ToArray();
+
+        return SplitAssets(allAssets);
+    }
+
+    private static (IReadOnlyList<PackAsset>, IReadOnlyDictionary<string, IReadOnlyList<PackAsset>>) SplitAssets(IReadOnlyCollection<PackAsset> allAssets)
+    {
         var shared = allAssets
             .Where(static asset => asset.RelativePath.StartsWith("Shared/", StringComparison.Ordinal))
             .Select(static asset => asset with { RelativePath = asset.RelativePath["Shared/".Length..] })

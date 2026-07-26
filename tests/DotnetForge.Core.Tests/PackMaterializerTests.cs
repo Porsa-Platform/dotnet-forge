@@ -15,8 +15,8 @@ public sealed class PackMaterializerTests
             new ProjectConfiguration(),
             registry.Get(PackIds.TwoPack),
             "opencode",
-            attach: false,
-            dryRun: true);
+            Attach: false,
+            DryRun: true);
 
         materializer.Materialize(configuration);
 

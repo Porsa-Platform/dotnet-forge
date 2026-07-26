@@ -1,8 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "3047nbkNtSo=",
+  "dgSpecHash": "wrxPeHvUFy4=",
   "success": true,
   "projectFilePath": "/home/runner/work/dotnet-forge/dotnet-forge/src/DotnetForge.Cli/DotnetForge.Cli.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/home/runner/.nuget/packages/consoleappframework/5.7.13/consoleappframework.5.7.13.nupkg.sha512",
+    "/home/runner/.nuget/packages/microsoft.extensions.dependencyinjection/10.0.10/microsoft.extensions.dependencyinjection.10.0.10.nupkg.sha512",
+    "/home/runner/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/10.0.10/microsoft.extensions.dependencyinjection.abstractions.10.0.10.nupkg.sha512",
+    "/home/runner/.nuget/packages/spectre.console/0.57.2/spectre.console.0.57.2.nupkg.sha512",
+    "/home/runner/.nuget/packages/spectre.console.ansi/0.57.2/spectre.console.ansi.0.57.2.nupkg.sha512"
+  ],
   "logs": []
 }
