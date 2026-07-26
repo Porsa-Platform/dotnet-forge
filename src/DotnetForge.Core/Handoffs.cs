@@ -372,7 +372,8 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
         }
 
         var firstPriority = ParseMessage(File.ReadAllText(newFiles[0], Encoding.UTF8)).Headers["priority"];
-        var batchDirectory = Path.Combine(inProcess, $"batch_{DateTimeOffset.UtcNow:yyyyMMddTHHmmssZ}_{Guid.NewGuid():N}"[..8]);
+        var batchSuffix = Guid.NewGuid().ToString("N")[..8];
+        var batchDirectory = Path.Combine(inProcess, $"batch_{DateTimeOffset.UtcNow:yyyyMMddTHHmmssZ}_{batchSuffix}");
         Directory.CreateDirectory(batchDirectory);
         foreach (var file in newFiles.Where(file => ParseMessage(File.ReadAllText(file, Encoding.UTF8)).Headers["priority"] == firstPriority))
         {
