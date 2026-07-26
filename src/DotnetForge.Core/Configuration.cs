@@ -33,7 +33,7 @@ public sealed class JsonProjectConfigurationStore(IPackRegistry packRegistry) : 
     public async Task<ProjectConfiguration> SaveAsync(string workingDirectory, ProjectConfiguration configuration, CancellationToken cancellationToken = default)
     {
         var paths = ProjectPaths.For(workingDirectory);
-        Directory.CreateDirectory(paths.SwarmforgeDirectory);
+        Directory.CreateDirectory(paths.DotnetForgeDirectory);
         var normalized = configuration.Normalize(packRegistry);
         await using var stream = File.Create(paths.ConfigurationFile);
         await JsonSerializer.SerializeAsync(stream, normalized, JsonOptions, cancellationToken);

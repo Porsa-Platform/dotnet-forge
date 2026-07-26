@@ -24,10 +24,5 @@ internal sealed class FakeCommandRunner : ICommandRunner
         return new CommandResult(0, string.Empty, string.Empty);
     }
 
-    public void StartDetached(string fileName, IReadOnlyList<string> arguments, string? workingDirectory = null)
-    {
-        Invocations.Add("DETACHED " + BuildKey(fileName, arguments));
-    }
-
     private static string BuildKey(string fileName, IReadOnlyList<string> arguments) => fileName + " " + string.Join(' ', arguments);
 }

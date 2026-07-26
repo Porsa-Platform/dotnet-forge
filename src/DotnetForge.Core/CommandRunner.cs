@@ -8,7 +8,36 @@ public sealed record CommandResult(int ExitCode, string StandardOutput, string S
 public interface ICommandRunner
 {
     CommandResult Run(string fileName, IReadOnlyList<string> arguments, string? workingDirectory = null, bool throwOnError = true);
-    void StartDetached(string fileName, IReadOnlyList<string> arguments, string? workingDirectory = null);
+}
+
+public interface IAgentNotifier
+{
+    void Notify(string session, string message);
+}
+
+public sealed class NullAgentNotifier : IAgentNotifier
+{
+    public static readonly NullAgentNotifier Instance = new();
+    public void Notify(string session, string message) { }
+}
+
+public sealed class ProcessAgentNotifier(IReadOnlyDictionary<string, StreamWriter> stdinWriters) : IAgentNotifier
+{
+    public void Notify(string session, string message)
+    {
+        if (stdinWriters.TryGetValue(session, out var writer))
+        {
+            try
+            {
+                writer.WriteLine(message);
+                writer.Flush();
+            }
+            catch
+            {
+                // Process may have exited
+            }
+        }
+    }
 }
 
 public sealed class ProcessCommandRunner : ICommandRunner
@@ -43,25 +72,6 @@ public sealed class ProcessCommandRunner : ICommandRunner
         }
 
         return result;
-    }
-
-    public void StartDetached(string fileName, IReadOnlyList<string> arguments, string? workingDirectory = null)
-    {
-        var startInfo = new ProcessStartInfo(fileName)
-        {
-            RedirectStandardOutput = false,
-            RedirectStandardError = false,
-            UseShellExecute = false,
-            CreateNoWindow = true,
-            WorkingDirectory = workingDirectory ?? Environment.CurrentDirectory,
-        };
-
-        foreach (var argument in arguments)
-        {
-            startInfo.ArgumentList.Add(argument);
-        }
-
-        Process.Start(startInfo);
     }
 }
 

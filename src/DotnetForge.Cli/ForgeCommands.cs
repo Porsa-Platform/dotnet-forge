@@ -11,7 +11,6 @@ public sealed class ForgeCommands(
     StopOrchestrator stopOrchestrator,
     HandoffService handoffService,
     HandoffFormatter handoffFormatter,
-    HandoffDaemon handoffDaemon,
     IAnsiConsole console)
 {
     [Command("packs list")]
@@ -84,7 +83,14 @@ public sealed class ForgeCommands(
     {
         await ExecuteAsync(async () =>
         {
-            var summary = await runOrchestrator.RunAsync(new LaunchOptions(Path.GetFullPath(workingDirectory), pack, agent, !noAttach, dryRun));
+            using var cts = new CancellationTokenSource();
+            Console.CancelKeyPress += (_, e) =>
+            {
+                e.Cancel = true;
+                cts.Cancel();
+            };
+
+            var summary = await runOrchestrator.RunAsync(new LaunchOptions(Path.GetFullPath(workingDirectory), pack, agent, !noAttach, dryRun), cts.Token);
             var config = summary.EffectiveConfiguration;
             var table = new Table().Border(TableBorder.Rounded).AddColumn("Role").AddColumn("Session").AddColumn("Worktree").AddColumn("Mode");
             foreach (var role in summary.RuntimeRoles)
@@ -98,10 +104,6 @@ public sealed class ForgeCommands(
             {
                 console.Write(new Panel(string.Join(Environment.NewLine, summary.ExecutedCommands)).Header("Generated commands"));
             }
-            else
-            {
-                console.MarkupLine("[green]dotnet-forge is ready.[/] Use [bold]close-swarm[/] or [bold]dotnet-forge stop[/] to stop it.");
-            }
 
             return 0;
         });
@@ -113,7 +115,7 @@ public sealed class ForgeCommands(
         await ExecuteAsync(() =>
         {
             stopOrchestrator.Stop(Path.GetFullPath(workingDirectory));
-            console.MarkupLine("[yellow]Requested swarm shutdown.[/]");
+            console.MarkupLine("[yellow]Requested forge shutdown.[/]");
             return Task.FromResult(0);
         });
     }
@@ -149,22 +151,6 @@ public sealed class ForgeCommands(
             console.WriteLine($"COMPLETED: {result.CompletedPath}");
             console.WriteLine(handoffFormatter.FormatSelection(result.NextSelection));
             return Task.FromResult(0);
-        });
-    }
-
-    [Command("internal handoff-daemon")]
-    public async Task RunHandoffDaemon(string workingDirectory = ".")
-    {
-        await ExecuteAsync(async () =>
-        {
-            using var cts = new CancellationTokenSource();
-            Console.CancelKeyPress += (_, eventArgs) =>
-            {
-                eventArgs.Cancel = true;
-                cts.Cancel();
-            };
-            await handoffDaemon.RunAsync(Path.GetFullPath(workingDirectory), cts.Token);
-            return 0;
         });
     }
 

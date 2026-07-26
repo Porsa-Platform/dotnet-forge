@@ -16,12 +16,12 @@ var app = ConsoleApp.Create()
         services.AddSingleton<RuntimeStateStore>();
         services.AddSingleton<WorkspacePreparationService>();
         services.AddSingleton<AgentLaunchCommandBuilder>();
+        services.AddSingleton<HandoffDaemon>();
         services.AddSingleton<RunOrchestrator>();
         services.AddSingleton<StopOrchestrator>();
         services.AddSingleton<ProjectLocator>();
         services.AddSingleton<HandoffFormatter>();
         services.AddSingleton<HandoffService>();
-        services.AddSingleton<HandoffDaemon>();
         services.AddSingleton<IAnsiConsole>(_ => AnsiConsole.Console);
     });
 

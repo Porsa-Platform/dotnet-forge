@@ -10,7 +10,7 @@ public sealed class ProjectLocator
         var directory = new DirectoryInfo(Path.GetFullPath(workingDirectory));
         while (directory is not null)
         {
-            if (Directory.Exists(Path.Combine(directory.FullName, "swarmforge")) || Directory.Exists(Path.Combine(directory.FullName, ".swarmforge")))
+            if (Directory.Exists(Path.Combine(directory.FullName, "dotnet-forge")) || Directory.Exists(Path.Combine(directory.FullName, ".dotnet-forge")))
             {
                 return directory.FullName;
             }
@@ -97,7 +97,7 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
         var runtimeRoles = runtimeStateStore.LoadRoles(root);
         var role = ResolveRole(runtimeRoles, roleOverride);
         var draft = ParseDraft(File.ReadAllText(draftFile, Encoding.UTF8), root, role.Role);
-        var handoffDirectory = Path.Combine(role.WorktreePath, ".swarmforge", "handoffs");
+        var handoffDirectory = Path.Combine(role.WorktreePath, ".dotnet-forge", "handoffs");
         var fileName = BuildFileName(draft.Headers["priority"], role.Role, draft.Headers["to"], handoffDirectory);
         var path = Path.Combine(handoffDirectory, "outbox", fileName);
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
@@ -105,7 +105,7 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
         return new HandoffQueueResult(path);
     }
 
-    public void PumpOnce(string workingDirectory)
+    public void PumpOnce(string workingDirectory, IAgentNotifier notifier)
     {
         var root = projectLocator.FindRoot(workingDirectory);
         var runtimeRoles = runtimeStateStore.LoadRoles(root).ToDictionary(static role => role.Role, StringComparer.OrdinalIgnoreCase);
@@ -113,7 +113,7 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
 
         foreach (var sender in runtimeRoles.Values)
         {
-            var outbox = Path.Combine(sender.WorktreePath, ".swarmforge", "handoffs", "outbox");
+            var outbox = Path.Combine(sender.WorktreePath, ".dotnet-forge", "handoffs", "outbox");
             if (!Directory.Exists(outbox))
             {
                 continue;
@@ -124,7 +124,7 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
                 var message = ParseMessage(File.ReadAllText(file, Encoding.UTF8));
                 if (!message.Headers.TryGetValue("to", out var to))
                 {
-                    MoveWithCollision(file, Path.Combine(sender.WorktreePath, ".swarmforge", "handoffs", "failed"));
+                    MoveWithCollision(file, Path.Combine(sender.WorktreePath, ".dotnet-forge", "handoffs", "failed"));
                     continue;
                 }
 
@@ -135,7 +135,7 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
                         throw new ForgeException($"Unknown recipient '{recipient}'.", 2);
                     }
 
-                    var targetPath = Path.Combine(targetRole.WorktreePath, ".swarmforge", "handoffs", "inbox", "new", Path.GetFileName(file));
+                    var targetPath = Path.Combine(targetRole.WorktreePath, ".dotnet-forge", "handoffs", "inbox", "new", Path.GetFileName(file));
                     Directory.CreateDirectory(Path.GetDirectoryName(targetPath)!);
                     var delivered = new Dictionary<string, string>(message.Headers, StringComparer.OrdinalIgnoreCase)
                     {
@@ -143,10 +143,10 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
                         ["enqueued_at"] = DateTimeOffset.UtcNow.ToString("O"),
                     };
                     File.WriteAllText(targetPath, new HandoffMessage(delivered, message.Body).Render(), Encoding.UTF8);
-                    commandRunner.Run("tmux", ["-S", paths.TmuxSocket, "send-keys", "-t", targetRole.Session, WakeMessage, "Enter"], throwOnError: false);
+                    notifier.Notify(targetRole.Session, WakeMessage);
                 }
 
-                MoveWithCollision(file, Path.Combine(sender.WorktreePath, ".swarmforge", "handoffs", "sent"));
+                MoveWithCollision(file, Path.Combine(sender.WorktreePath, ".dotnet-forge", "handoffs", "sent"));
             }
         }
     }
@@ -235,7 +235,7 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
 
         var headers = new Dictionary<string, string>(message.Headers, StringComparer.OrdinalIgnoreCase)
         {
-            ["id"] = $"{DateTimeOffset.UtcNow:yyyyMMddTHHmmssZ}_{NextSequence(Path.Combine(root, ".swarmforge", "handoffs-sequence")):000000}_from_{senderRole}",
+            ["id"] = $"{DateTimeOffset.UtcNow:yyyyMMddTHHmmssZ}_{NextSequence(Path.Combine(root, ".dotnet-forge", "handoffs-sequence")):000000}_from_{senderRole}",
             ["from"] = senderRole,
             ["role"] = senderRole,
             ["created_at"] = DateTimeOffset.UtcNow.ToString("O"),
@@ -304,7 +304,7 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
     private static RuntimeRole ResolveRole(IReadOnlyList<RuntimeRole> runtimeRoles, string? roleOverride)
     {
         var roleName = string.IsNullOrWhiteSpace(roleOverride)
-            ? Environment.GetEnvironmentVariable("DOTNET_FORGE_ROLE") ?? Environment.GetEnvironmentVariable("SWARMFORGE_ROLE")
+            ? Environment.GetEnvironmentVariable("DOTNET_FORGE_ROLE")
             : roleOverride;
 
         if (string.IsNullOrWhiteSpace(roleName))
@@ -318,7 +318,7 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
 
     private static HandoffSelection ReadyTask(RuntimeRole role)
     {
-        var inProcess = Path.Combine(role.WorktreePath, ".swarmforge", "handoffs", "inbox", "in_process");
+        var inProcess = Path.Combine(role.WorktreePath, ".dotnet-forge", "handoffs", "inbox", "in_process");
         var existing = Directory.GetFileSystemEntries(inProcess);
         if (existing.Length > 1)
         {
@@ -335,7 +335,7 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
             return BuildTaskSelection(existing[0]);
         }
 
-        var next = Directory.GetFiles(Path.Combine(role.WorktreePath, ".swarmforge", "handoffs", "inbox", "new"), "*.handoff")
+        var next = Directory.GetFiles(Path.Combine(role.WorktreePath, ".dotnet-forge", "handoffs", "inbox", "new"), "*.handoff")
             .OrderBy(static x => x, StringComparer.Ordinal)
             .FirstOrDefault();
         if (next is null)
@@ -351,7 +351,7 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
 
     private static HandoffSelection ReadyBatch(RuntimeRole role)
     {
-        var inProcess = Path.Combine(role.WorktreePath, ".swarmforge", "handoffs", "inbox", "in_process");
+        var inProcess = Path.Combine(role.WorktreePath, ".dotnet-forge", "handoffs", "inbox", "in_process");
         var existingDirectories = Directory.GetDirectories(inProcess);
         if (existingDirectories.Length > 1 || Directory.GetFiles(inProcess, "*.handoff").Length > 0)
         {
@@ -363,7 +363,7 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
             return BuildBatchSelection(existingDirectories[0]);
         }
 
-        var newFiles = Directory.GetFiles(Path.Combine(role.WorktreePath, ".swarmforge", "handoffs", "inbox", "new"), "*.handoff")
+        var newFiles = Directory.GetFiles(Path.Combine(role.WorktreePath, ".dotnet-forge", "handoffs", "inbox", "new"), "*.handoff")
             .OrderBy(static x => x, StringComparer.Ordinal)
             .ToArray();
         if (newFiles.Length == 0)
@@ -387,7 +387,7 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
 
     private static HandoffCompletionResult CompleteTask(RuntimeRole role)
     {
-        var inProcess = Path.Combine(role.WorktreePath, ".swarmforge", "handoffs", "inbox", "in_process");
+        var inProcess = Path.Combine(role.WorktreePath, ".dotnet-forge", "handoffs", "inbox", "in_process");
         var existing = Directory.GetFileSystemEntries(inProcess);
         if (existing.Length == 0)
         {
@@ -405,7 +405,7 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
         }
 
         StampHeader(existing[0], "completed_at", DateTimeOffset.UtcNow.ToString("O"));
-        var completedDirectory = Path.Combine(role.WorktreePath, ".swarmforge", "handoffs", "inbox", "completed");
+        var completedDirectory = Path.Combine(role.WorktreePath, ".dotnet-forge", "handoffs", "inbox", "completed");
         Directory.CreateDirectory(completedDirectory);
         var completedPath = Path.Combine(completedDirectory, Path.GetFileName(existing[0]));
         if (File.Exists(completedPath))
@@ -419,7 +419,7 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
 
     private static HandoffCompletionResult CompleteBatch(RuntimeRole role)
     {
-        var inProcess = Path.Combine(role.WorktreePath, ".swarmforge", "handoffs", "inbox", "in_process");
+        var inProcess = Path.Combine(role.WorktreePath, ".dotnet-forge", "handoffs", "inbox", "in_process");
         var directories = Directory.GetDirectories(inProcess);
         if (directories.Length == 0)
         {
@@ -436,7 +436,7 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
             StampHeader(file, "completed_at", DateTimeOffset.UtcNow.ToString("O"));
         }
 
-        var completedDirectory = Path.Combine(role.WorktreePath, ".swarmforge", "handoffs", "inbox", "completed");
+        var completedDirectory = Path.Combine(role.WorktreePath, ".dotnet-forge", "handoffs", "inbox", "completed");
         Directory.CreateDirectory(completedDirectory);
         var destination = Path.Combine(completedDirectory, Path.GetFileName(directories[0]));
         if (Directory.Exists(destination))
@@ -497,14 +497,15 @@ public sealed class HandoffService(ProjectLocator projectLocator, RuntimeStateSt
 
 public sealed class HandoffDaemon(HandoffService handoffService)
 {
-    public async Task RunAsync(string workingDirectory, CancellationToken cancellationToken)
+    public async Task RunAsync(string workingDirectory, CancellationToken cancellationToken, IAgentNotifier? notifier = null)
     {
+        notifier ??= NullAgentNotifier.Instance;
         var root = new ProjectLocator().FindRoot(workingDirectory);
         var stopFile = ProjectPaths.For(root).StopFile;
         Directory.CreateDirectory(Path.GetDirectoryName(stopFile)!);
         while (!cancellationToken.IsCancellationRequested && !File.Exists(stopFile))
         {
-            handoffService.PumpOnce(root);
+            handoffService.PumpOnce(root, notifier);
             await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
         }
     }

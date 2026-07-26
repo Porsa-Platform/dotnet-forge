@@ -1,15 +1,15 @@
 # Project Rules
 
 ## Project Shape
-- This project is configured for SwarmForge with two Codex-backed agents:
+- This project is configured for dotnet-forge with two Codex-backed agents:
   coder and cleaner.
 - The coder is the master worktree role.
 - Project language: Babashka.
 
 ## Local Configuration
-- Preserve project-local SwarmForge configuration under `swarmforge/`.
-- Keep swarm state local under `.swarmforge/`, worktrees under `.worktrees/`,
-  and shared scripts under `swarmforge/scripts/`.
+- Preserve project-local dotnet-forge configuration under `dotnet-forge/`.
+- Keep swarm state local under `.dotnet-forge/`, worktrees under `.worktrees/`,
+  and shared scripts under `dotnet-forge/scripts/`.
 
 ## Workflow
 - The cleaner receives coder handoffs in batch mode.

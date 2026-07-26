@@ -26,7 +26,7 @@ timestamps are stored in the handoff file headers.
 Each agent worktree owns this structure:
 
 ```text
-.swarmforge/handoffs/
+.dotnet-forge/handoffs/
   outbox/
     tmp/
   sent/
@@ -43,20 +43,18 @@ the audit trail and restart state.
 
 ## Role Receive Mode
 
-`swarmforge.conf` window lines may include an optional receive mode:
+`dotnet-forge.conf` window lines may include an optional receive mode:
 
 ```text
-window <role> <agent> <worktree> [task|batch] [extra-cli-args...]
+window <role> <agent> <worktree> [task|batch]
 ```
 
-When omitted, receive mode defaults to `task`. Any fields after the receive
-mode are passed to the agent CLI as additional arguments. The launcher writes the
-normalized mode into `.swarmforge/roles.tsv`, and agent-facing receive helpers
-read that runtime file rather than reparsing `swarmforge.conf`.
+When omitted, receive mode defaults to `task`. The launcher writes the
+normalized mode into `.dotnet-forge/roles.tsv`, and agent-facing receive helpers
+read that runtime file rather than reparsing `dotnet-forge.conf`.
 
 Use `batch` for roles that should consume equal-priority queued handoffs as a
-single unit, such as six-pack `cleaner`, `architect`, `hardener`, and `QA`,
-and four-pack `architect`.
+single unit, such as six-pack `hardener` and four-pack `architect`.
 
 ## Filename Format
 
@@ -154,38 +152,10 @@ The script validates the task name and canonicalizes the commit abbreviation
 before queuing the handoff. The task name is a short, stable human-readable
 name that follows the work through downstream git handoffs for the same task.
 
-#### Chain forwarding
-
-Intermediate roles in a pack pipeline must always forward a `git_handoff` to
-the next role in the chain after completing the inbound task, regardless of
-what changed. Manifest-only, audit-only, generated metadata, formatting-only,
-and other non-functional churn still require a forward down the chain.
-
-Examples:
-
-- `two-pack`: `coder` -> `cleaner` -> `coder`; `cleaner` always forwards to
-  `coder`.
-- `four-pack`: `specifier` -> `coder` -> `refactorer` -> `architect` ->
-  `specifier`; each intermediate role always forwards to the next role in the
-  chain.
-- `six-pack`: `specifier` -> `coder` -> `cleaner` -> `architect` -> `hardener`
-  -> `QA`; each intermediate role always forwards to the next role in the
-  chain.
-
-#### Terminal broadcast
-
-Only the end-of-chain handoff sent to multiple recipients is not forwarded
-further. Each recipient merges that commit (`merge_and_process`) and stops;
-recipients do not re-forward that handoff down the chain.
-
-Examples:
-
-- `two-pack`: when `cleaner` sends the return handoff to `coder`, `coder`
-  merges only.
-- `four-pack`: when `architect` sends the return handoff to `specifier`,
-  `specifier` merges only.
-- `six-pack`: when `QA` sends the completion handoff to the other roles, each
-  recipient merges only.
+A role must not send or forward a `git_handoff` when the received commit
+produces no functional project change. Manifest-only, audit-only, generated
+metadata, formatting-only, and other non-functional churn is no forwardable
+change; the role should complete the inbound task instead.
 
 ### `note`
 
@@ -346,7 +316,7 @@ Responsibilities:
 
 - Run inside one agent worktree.
 - Read the current role from `SWARMFORGE_ROLE`.
-- Read that role's receive mode from `.swarmforge/roles.tsv`.
+- Read that role's receive mode from `.dotnet-forge/roles.tsv`.
 - Dispatch to `ready_for_next_task.sh` for `task` mode.
 - Dispatch to `ready_for_next_batch.sh` for `batch` mode.
 
@@ -356,7 +326,7 @@ Responsibilities:
 
 - Run inside one agent worktree.
 - Read the current role from `SWARMFORGE_ROLE`.
-- Read that role's receive mode from `.swarmforge/roles.tsv`.
+- Read that role's receive mode from `.dotnet-forge/roles.tsv`.
 - Dispatch to `done_with_current_task.sh` for `task` mode.
 - Dispatch to `done_with_current_batch.sh` for `batch` mode.
 
@@ -380,7 +350,7 @@ Responsibilities:
 Example success:
 
 ```text
-TASK: .swarmforge/handoffs/inbox/in_process/00_20260615T140531Z_000042_from_architect_to_coder.handoff
+TASK: .dotnet-forge/handoffs/inbox/in_process/00_20260615T140531Z_000042_from_architect_to_coder.handoff
 FROM: architect
 TYPE: git_handoff
 PRIORITY: 00
@@ -447,8 +417,8 @@ Responsibilities:
 Example success:
 
 ```text
-COMPLETED: .swarmforge/handoffs/inbox/completed/00_20260615T140531Z_000042_from_architect_to_coder.handoff
-TASK: .swarmforge/handoffs/inbox/in_process/50_20260615T140600Z_000043_from_cleaner_to_coder.handoff
+COMPLETED: .dotnet-forge/handoffs/inbox/completed/00_20260615T140531Z_000042_from_architect_to_coder.handoff
+TASK: .dotnet-forge/handoffs/inbox/in_process/50_20260615T140600Z_000043_from_cleaner_to_coder.handoff
 FROM: cleaner
 TYPE: note
 PRIORITY: 50
@@ -461,7 +431,7 @@ Waiting on QA result before merging cleanup branch.
 Example success with no queued follow-up:
 
 ```text
-COMPLETED: .swarmforge/handoffs/inbox/completed/00_20260615T140531Z_000042_from_architect_to_coder.handoff
+COMPLETED: .dotnet-forge/handoffs/inbox/completed/00_20260615T140531Z_000042_from_architect_to_coder.handoff
 NO_TASK
 ```
 
@@ -529,12 +499,12 @@ The swarm launcher should own the daemon lifecycle.
 Startup:
 
 - Start the daemon after creating or discovering the tmux session.
-- Write daemon runtime files under `.swarmforge/daemon/`.
+- Write daemon runtime files under `.dotnet-forge/daemon/`.
 
 Runtime files:
 
 ```text
-.swarmforge/daemon/
+.dotnet-forge/daemon/
   handoffd.pid
   handoffd.log
   stop
@@ -545,7 +515,7 @@ Shutdown:
 - When the swarm is torn down, the launcher sends `TERM` to the daemon.
 - The daemon traps `TERM`, finishes any current delivery transaction, removes
   its PID file, logs shutdown, and exits.
-- The daemon may also watch `.swarmforge/daemon/stop` as a secondary shutdown
+- The daemon may also watch `.dotnet-forge/daemon/stop` as a secondary shutdown
   mechanism.
 
 Delivery should be transaction-like:

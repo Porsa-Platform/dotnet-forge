@@ -9,7 +9,7 @@ public sealed class HandoffWorkflowTests
     public void Ready_and_done_flow_round_trips_task_handoffs()
     {
         var root = CreateTempDirectory();
-        Directory.CreateDirectory(Path.Combine(root, "swarmforge"));
+        Directory.CreateDirectory(Path.Combine(root, "dotnet-forge"));
         var runtimeStateStore = new RuntimeStateStore();
         var effectiveConfiguration = new EffectiveConfiguration(
             root,
@@ -20,7 +20,7 @@ public sealed class HandoffWorkflowTests
             DryRun: true);
         runtimeStateStore.Write(effectiveConfiguration);
 
-        var coderInbox = Path.Combine(root, ".swarmforge", "handoffs", "inbox", "new");
+        var coderInbox = Path.Combine(root, ".dotnet-forge", "handoffs", "inbox", "new");
         Directory.CreateDirectory(coderInbox);
         var handoffPath = Path.Combine(coderInbox, "00_20260726T000000Z_000001_from_cleaner_to_coder.handoff");
         File.WriteAllText(handoffPath, string.Join(Environment.NewLine,
@@ -48,7 +48,7 @@ public sealed class HandoffWorkflowTests
     public void Queue_validates_commit_resolution()
     {
         var root = CreateTempDirectory();
-        Directory.CreateDirectory(Path.Combine(root, "swarmforge"));
+        Directory.CreateDirectory(Path.Combine(root, "dotnet-forge"));
         var runtimeStateStore = new RuntimeStateStore();
         runtimeStateStore.Write(new EffectiveConfiguration(
             root,

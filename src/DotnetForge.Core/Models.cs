@@ -1,4 +1,3 @@
-using System.Security.Cryptography;
 using System.Text;
 
 namespace DotnetForge.Core;
@@ -167,21 +166,20 @@ public sealed class ProjectPaths
     private ProjectPaths(string workingDirectory)
     {
         WorkingDirectory = Path.GetFullPath(workingDirectory);
-        SwarmforgeDirectory = Path.Combine(WorkingDirectory, "swarmforge");
-        ConfigurationFile = Path.Combine(SwarmforgeDirectory, "dotnet-forge.json");
-        StateDirectory = Path.Combine(WorkingDirectory, ".swarmforge");
+        DotnetForgeDirectory = Path.Combine(WorkingDirectory, "dotnet-forge");
+        ConfigurationFile = Path.Combine(DotnetForgeDirectory, "dotnet-forge.json");
+        StateDirectory = Path.Combine(WorkingDirectory, ".dotnet-forge");
         WorktreesDirectory = Path.Combine(WorkingDirectory, ".worktrees");
         PromptsDirectory = Path.Combine(StateDirectory, "prompts");
         RolesFile = Path.Combine(StateDirectory, "roles.tsv");
         SessionsFile = Path.Combine(StateDirectory, "sessions.tsv");
         StopFile = Path.Combine(StateDirectory, "daemon", "stop");
         DaemonLogFile = Path.Combine(StateDirectory, "daemon", "handoffd.log");
-        var hash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(WorkingDirectory))).ToLowerInvariant()[..12];
-        TmuxSocket = Path.Combine(Path.GetTempPath(), $"dotnet-forge-{hash}.sock");
+        PidsDirectory = Path.Combine(StateDirectory, "pids");
     }
 
     public string WorkingDirectory { get; }
-    public string SwarmforgeDirectory { get; }
+    public string DotnetForgeDirectory { get; }
     public string ConfigurationFile { get; }
     public string StateDirectory { get; }
     public string WorktreesDirectory { get; }
@@ -190,7 +188,7 @@ public sealed class ProjectPaths
     public string SessionsFile { get; }
     public string StopFile { get; }
     public string DaemonLogFile { get; }
-    public string TmuxSocket { get; }
+    public string PidsDirectory { get; }
 
     public static ProjectPaths For(string workingDirectory) => new(workingDirectory);
 
