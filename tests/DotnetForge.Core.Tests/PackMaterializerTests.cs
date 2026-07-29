@@ -21,7 +21,7 @@ public sealed class PackMaterializerTests
         materializer.Materialize(configuration);
 
         Assert.True(File.Exists(Path.Combine(root, "dotnet-forge", "roles", "coder.prompt")));
-        Assert.True(File.Exists(Path.Combine(root, "dotnet-forge", "scripts", "ready_for_next.cs")));
+        Assert.True(File.Exists(Path.Combine(root, "dotnet-forge", "scripts", "ready_for_next.sh")));
         var configText = File.ReadAllText(Path.Combine(root, "dotnet-forge", "dotnet-forge.conf"));
         Assert.Contains("window cleaner opencode cleaner batch", configText, StringComparison.Ordinal);
     }

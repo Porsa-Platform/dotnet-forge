@@ -21,10 +21,10 @@ public static class AgentBackends
 
     public static string Normalize(string? backend)
     {
-        var value = string.IsNullOrWhiteSpace(backend) ? "codex" : backend.Trim().ToLowerInvariant();
+        var value = string.IsNullOrWhiteSpace(backend) ? "opencode" : backend.Trim().ToLowerInvariant();
         if (!Supported.Contains(value))
         {
-            throw new ForgeException($"Unsupported agent backend '{value}'. Supported backends: codex, claude, opencode, copilot, grok.", 2);
+            throw new ForgeException($"Unsupported agent backend '{value}'. Supported backends: opencode, codex, claude, copilot, grok.", 2);
         }
 
         return value;
@@ -57,7 +57,7 @@ public sealed record ProjectConfiguration
     public string SchemaVersion { get; init; } = "1.0";
     public List<string> EnabledPacks { get; init; } = [PackIds.FourPack, PackIds.TwoPack, PackIds.SixPack];
     public string DefaultPack { get; init; } = PackIds.FourPack;
-    public string AgentBackend { get; init; } = "codex";
+    public string AgentBackend { get; init; } = "opencode";
     public string TerminalMode { get; init; } = "none";
     public bool PreventSleep { get; init; }
     public int AgentStartDelayMs { get; init; } = 1500;
@@ -175,6 +175,7 @@ public sealed class ProjectPaths
         SessionsFile = Path.Combine(StateDirectory, "sessions.tsv");
         StopFile = Path.Combine(StateDirectory, "daemon", "stop");
         DaemonLogFile = Path.Combine(StateDirectory, "daemon", "handoffd.log");
+        TmuxSocketFile = Path.Combine(StateDirectory, "tmux-socket");
         PidsDirectory = Path.Combine(StateDirectory, "pids");
     }
 
@@ -188,6 +189,7 @@ public sealed class ProjectPaths
     public string SessionsFile { get; }
     public string StopFile { get; }
     public string DaemonLogFile { get; }
+    public string TmuxSocketFile { get; }
     public string PidsDirectory { get; }
 
     public static ProjectPaths For(string workingDirectory) => new(workingDirectory);

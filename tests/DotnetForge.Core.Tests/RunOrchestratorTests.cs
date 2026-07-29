@@ -22,7 +22,8 @@ public sealed class RunOrchestratorTests
             new WorkspacePreparationService(fakeRunner),
             runtimeStateStore,
             new AgentLaunchCommandBuilder(),
-            handoffDaemon);
+            handoffDaemon,
+            fakeRunner);
 
         var summary = await orchestrator.RunAsync(new LaunchOptions(root, null, "opencode", Attach: false, DryRun: true));
 

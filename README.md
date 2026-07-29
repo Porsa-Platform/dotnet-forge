@@ -72,13 +72,13 @@ Example config:
 
 ```json
 {
-  "schemaVersion": "1.0",
-  "enabledPacks": ["four-pack", "two-pack", "six-pack"],
-  "defaultPack": "four-pack",
-  "agentBackend": "codex",
-  "terminalMode": "none",
-  "preventSleep": false,
-  "agentStartDelayMs": 1500
+	"schemaVersion": "1.0",
+	"enabledPacks": ["four-pack", "two-pack", "six-pack"],
+	"defaultPack": "four-pack",
+	"agentBackend": "codex",
+	"terminalMode": "none",
+	"preventSleep": false,
+	"agentStartDelayMs": 1500
 }
 ```
 
@@ -203,9 +203,9 @@ dotnet-forge handoff done --role cleaner
 
 When `run` materializes a pack, wrapper scripts are generated under `dotnet-forge/scripts/`:
 
-- `handoff_queue.cs`
-- `ready_for_next.cs`
-- `done_with_current.cs`
+- `handoff_queue.sh`
+- `ready_for_next.sh`
+- `done_with_current.sh`
 
 These are .NET 10 file-based apps (runnable via `dotnet run <script>.cs`) that delegate to `dotnet-forge`.
 
@@ -256,11 +256,11 @@ This port preserves these upstream semantics where practical:
 
 ## Migration from branch-based packs
 
-| Upstream branch | `dotnet-forge` equivalent |
-|---|---|
-| `two-pack` | `dotnet-forge packs enable --pack two-pack` + `dotnet-forge run --pack two-pack` |
-| `four-pack` | `dotnet-forge packs enable --pack four-pack` + `dotnet-forge run --pack four-pack` |
-| `six-pack` | `dotnet-forge packs enable --pack six-pack` + `dotnet-forge run --pack six-pack` |
+| Upstream branch | `dotnet-forge` equivalent                                                          |
+| --------------- | ---------------------------------------------------------------------------------- |
+| `two-pack`      | `dotnet-forge packs enable --pack two-pack` + `dotnet-forge run --pack two-pack`   |
+| `four-pack`     | `dotnet-forge packs enable --pack four-pack` + `dotnet-forge run --pack four-pack` |
+| `six-pack`      | `dotnet-forge packs enable --pack six-pack` + `dotnet-forge run --pack six-pack`   |
 
 Recommended migration path:
 

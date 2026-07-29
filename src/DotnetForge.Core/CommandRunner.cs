@@ -40,6 +40,50 @@ public sealed class ProcessAgentNotifier(IReadOnlyDictionary<string, StreamWrite
     }
 }
 
+/// <summary>
+/// Sends notifications to tmux sessions via `tmux send-keys`.
+/// Works identically to upstream swarm-forge's handoffd.bb notify!().
+/// On Windows, tmux is routed through Git Bash (bash.exe).
+/// </summary>
+public sealed class TmuxAgentNotifier : IAgentNotifier
+{
+    private readonly string _socket;
+    private readonly ICommandRunner _runner;
+
+    public TmuxAgentNotifier(string tmuxSocket, ICommandRunner runner)
+    {
+        _socket = OperatingSystem.IsWindows()
+            ? "/" + char.ToLowerInvariant(tmuxSocket[0]) + tmuxSocket[2..].Replace('\\', '/')
+            : tmuxSocket;
+        _runner = runner;
+    }
+
+    public void Notify(string session, string message)
+    {
+        try
+        {
+            var tmuxArgs = $"-S \"{_socket}\" send-keys -t \"{session}\" -l \"{message.Replace("\"", "\\\"")}\"";
+            RunTmuxCmd(tmuxArgs);
+            Thread.Sleep(150);
+            RunTmuxCmd($"-S \"{_socket}\" send-keys -t \"{session}\" C-m");
+            Thread.Sleep(50);
+            RunTmuxCmd($"-S \"{_socket}\" send-keys -t \"{session}\" C-j");
+        }
+        catch
+        {
+            // tmux session may have exited
+        }
+    }
+
+    private void RunTmuxCmd(string tmuxArgs)
+    {
+        if (OperatingSystem.IsWindows())
+            _runner.Run("bash", ["-c", $"tmux {tmuxArgs}"], throwOnError: false);
+        else
+            _runner.Run("sh", ["-lc", $"tmux {tmuxArgs}"], throwOnError: false);
+    }
+}
+
 public sealed class ProcessCommandRunner : ICommandRunner
 {
     public CommandResult Run(string fileName, IReadOnlyList<string> arguments, string? workingDirectory = null, bool throwOnError = true)

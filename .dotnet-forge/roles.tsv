@@ -1,0 +1,4 @@
+﻿specifier	master	C:\Users\bugmaker\source\repos\dotnet-forge	dotnet-forge-specifier	Specifier	opencode	task
+coder	coder	C:\Users\bugmaker\source\repos\dotnet-forge\.worktrees\coder	dotnet-forge-coder	Coder	opencode	task
+refactorer	refactorer	C:\Users\bugmaker\source\repos\dotnet-forge\.worktrees\refactorer	dotnet-forge-refactorer	Refactorer	opencode	task
+architect	architect	C:\Users\bugmaker\source\repos\dotnet-forge\.worktrees\architect	dotnet-forge-architect	Architect	opencode	batch

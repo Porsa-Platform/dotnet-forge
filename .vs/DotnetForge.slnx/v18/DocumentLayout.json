@@ -1,0 +1,599 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\orchestration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\orchestration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C65B653-3159-7738-B192-8E43C254EFA2}|src\\DotnetForge.Cli\\DotnetForge.Cli.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.cli\\forgecommands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C65B653-3159-7738-B192-8E43C254EFA2}|src\\DotnetForge.Cli\\DotnetForge.Cli.csproj|solutionrelative:src\\dotnetforge.cli\\forgecommands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C65B653-3159-7738-B192-8E43C254EFA2}|src\\DotnetForge.Cli\\DotnetForge.Cli.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.cli\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C65B653-3159-7738-B192-8E43C254EFA2}|src\\DotnetForge.Cli\\DotnetForge.Cli.csproj|solutionrelative:src\\dotnetforge.cli\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\models.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\models.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\configuration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\configuration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C65B653-3159-7738-B192-8E43C254EFA2}|src\\DotnetForge.Cli\\DotnetForge.Cli.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.cli\\dotnetforge.cli.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{6C65B653-3159-7738-B192-8E43C254EFA2}|src\\DotnetForge.Cli\\DotnetForge.Cli.csproj|solutionrelative:src\\dotnetforge.cli\\dotnetforge.cli.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\handoffs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\handoffs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{06162FF7-BC7D-18B7-534C-633B6B01AD5C}|tests\\DotnetForge.Core.Tests\\DotnetForge.Core.Tests.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\tests\\dotnetforge.core.tests\\handoffworkflowtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06162FF7-BC7D-18B7-534C-633B6B01AD5C}|tests\\DotnetForge.Core.Tests\\DotnetForge.Core.Tests.csproj|solutionrelative:tests\\dotnetforge.core.tests\\handoffworkflowtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\dotnetforge.core.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\dotnetforge.core.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{06162FF7-BC7D-18B7-534C-633B6B01AD5C}|tests\\DotnetForge.Core.Tests\\DotnetForge.Core.Tests.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\tests\\dotnetforge.core.tests\\dotnetforge.core.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{06162FF7-BC7D-18B7-534C-633B6B01AD5C}|tests\\DotnetForge.Core.Tests\\DotnetForge.Core.Tests.csproj|solutionrelative:tests\\dotnetforge.core.tests\\dotnetforge.core.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\packs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\packs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\shared\\dotnet-forge\\constitution\\articles\\workflow.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\shared\\dotnet-forge\\constitution\\articles\\workflow.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\shared\\dotnet-forge\\constitution\\articles\\handoffs.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\shared\\dotnet-forge\\constitution\\articles\\handoffs.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\shared\\dotnet-forge\\constitution\\articles\\engineering.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\shared\\dotnet-forge\\constitution\\articles\\engineering.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\two-pack\\dotnet-forge\\constitution\\articles\\engineering.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\two-pack\\dotnet-forge\\constitution\\articles\\engineering.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\shared\\dotnet-forge\\handoff-protocol.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\shared\\dotnet-forge\\handoff-protocol.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\two-pack\\dotnet-forge\\constitution.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\two-pack\\dotnet-forge\\constitution.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\two-pack\\dotnet-forge\\roles\\coder.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\two-pack\\dotnet-forge\\roles\\coder.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\two-pack\\dotnet-forge\\roles\\cleaner.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\two-pack\\dotnet-forge\\roles\\cleaner.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\two-pack\\dotnet-forge\\constitution\\articles\\project.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\two-pack\\dotnet-forge\\constitution\\articles\\project.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\roles\\specifier.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\roles\\specifier.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\constitution.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\constitution.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\four-pack\\dotnet-forge\\constitution\\articles\\project.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\four-pack\\dotnet-forge\\constitution\\articles\\project.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\constitution\\articles\\project.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\constitution\\articles\\project.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\roles\\qa.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\roles\\qa.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\roles\\hardener.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\roles\\hardener.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\four-pack\\dotnet-forge\\roles\\architect.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\four-pack\\dotnet-forge\\roles\\architect.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\roles\\coder.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\roles\\coder.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\four-pack\\dotnet-forge\\roles\\coder.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\four-pack\\dotnet-forge\\roles\\coder.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\roles\\cleaner.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\roles\\cleaner.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\roles\\architect.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\roles\\architect.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\constitution\\articles\\local-workflow.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\constitution\\articles\\local-workflow.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\constitution\\articles\\local-engineering.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\six-pack\\dotnet-forge\\constitution\\articles\\local-engineering.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\four-pack\\dotnet-forge\\constitution.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\four-pack\\dotnet-forge\\constitution.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\four-pack\\dotnet-forge\\roles\\specifier.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\four-pack\\dotnet-forge\\roles\\specifier.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.core\\assets\\packs\\four-pack\\dotnet-forge\\roles\\refactorer.prompt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C772F436-58BB-1E09-CDB7-34D34C00CD8F}|src\\DotnetForge.Core\\DotnetForge.Core.csproj|solutionrelative:src\\dotnetforge.core\\assets\\packs\\four-pack\\dotnet-forge\\roles\\refactorer.prompt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Orchestration.cs",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Orchestration.cs",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Orchestration.cs",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Orchestration.cs",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Orchestration.cs",
+              "ViewState": "AgIAAIsBAAAAAAAAAAAqwKQBAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-27T01:18:33.398Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Cli\\Program.cs",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Cli\\Program.cs",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Cli\\Program.cs",
+              "RelativeToolTip": "src\\DotnetForge.Cli\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-27T13:26:07.519Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "HandoffWorkflowTests.cs",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\tests\\DotnetForge.Core.Tests\\HandoffWorkflowTests.cs",
+              "RelativeDocumentMoniker": "tests\\DotnetForge.Core.Tests\\HandoffWorkflowTests.cs",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\tests\\DotnetForge.Core.Tests\\HandoffWorkflowTests.cs",
+              "RelativeToolTip": "tests\\DotnetForge.Core.Tests\\HandoffWorkflowTests.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAqwC4AAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-27T13:21:59.446Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Models.cs",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Models.cs",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Models.cs",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Models.cs",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Models.cs",
+              "ViewState": "AgIAAF8AAAAAAAAAAIAwwG4AAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-27T01:17:03.346Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ForgeCommands.cs",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Cli\\ForgeCommands.cs",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Cli\\ForgeCommands.cs",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Cli\\ForgeCommands.cs",
+              "RelativeToolTip": "src\\DotnetForge.Cli\\ForgeCommands.cs",
+              "ViewState": "AgIAAEkAAAAAAAAAAAAqwF0AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-27T01:11:36.552Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DotnetForge.Cli.csproj",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Cli\\DotnetForge.Cli.csproj",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Cli\\DotnetForge.Cli.csproj",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Cli\\DotnetForge.Cli.csproj",
+              "RelativeToolTip": "src\\DotnetForge.Cli\\DotnetForge.Cli.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-07-27T01:11:02.972Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Configuration.cs",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Configuration.cs",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Configuration.cs",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Configuration.cs",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Configuration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-27T01:18:16.332Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DotnetForge.Core.Tests.csproj",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\tests\\DotnetForge.Core.Tests\\DotnetForge.Core.Tests.csproj",
+              "RelativeDocumentMoniker": "tests\\DotnetForge.Core.Tests\\DotnetForge.Core.Tests.csproj",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\tests\\DotnetForge.Core.Tests\\DotnetForge.Core.Tests.csproj",
+              "RelativeToolTip": "tests\\DotnetForge.Core.Tests\\DotnetForge.Core.Tests.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-07-27T13:22:13.794Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Packs.cs",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Packs.cs",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Packs.cs",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Packs.cs",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Packs.cs",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAiwCAAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-27T01:17:00.271Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Handoffs.cs",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Handoffs.cs",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Handoffs.cs",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Handoffs.cs",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Handoffs.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAE8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-27T13:08:56.056Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "workflow.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Shared\\dotnet-forge\\constitution\\articles\\workflow.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Shared\\dotnet-forge\\constitution\\articles\\workflow.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Shared\\dotnet-forge\\constitution\\articles\\workflow.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Shared\\dotnet-forge\\constitution\\articles\\workflow.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T02:10:22.311Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "handoffs.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Shared\\dotnet-forge\\constitution\\articles\\handoffs.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Shared\\dotnet-forge\\constitution\\articles\\handoffs.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Shared\\dotnet-forge\\constitution\\articles\\handoffs.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Shared\\dotnet-forge\\constitution\\articles\\handoffs.prompt",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAAAMAAABSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T02:10:16.6Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DotnetForge.Core.csproj",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\DotnetForge.Core.csproj",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\DotnetForge.Core.csproj",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\DotnetForge.Core.csproj",
+              "RelativeToolTip": "src\\DotnetForge.Core\\DotnetForge.Core.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-07-27T01:12:42.972Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "engineering.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Shared\\dotnet-forge\\constitution\\articles\\engineering.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Shared\\dotnet-forge\\constitution\\articles\\engineering.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Shared\\dotnet-forge\\constitution\\articles\\engineering.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Shared\\dotnet-forge\\constitution\\articles\\engineering.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T02:07:59.826Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "engineering.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\constitution\\articles\\engineering.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\constitution\\articles\\engineering.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\constitution\\articles\\engineering.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\constitution\\articles\\engineering.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T01:57:45.365Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "handoff-protocol.md",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Shared\\dotnet-forge\\handoff-protocol.md",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Shared\\dotnet-forge\\handoff-protocol.md",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Shared\\dotnet-forge\\handoff-protocol.md",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Shared\\dotnet-forge\\handoff-protocol.md",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2026-07-27T13:07:02.303Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "constitution.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\constitution.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\constitution.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\constitution.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\constitution.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T12:56:52.283Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "coder.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\roles\\coder.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\roles\\coder.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\roles\\coder.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\roles\\coder.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T13:01:20.944Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "cleaner.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\roles\\cleaner.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\roles\\cleaner.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\roles\\cleaner.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\roles\\cleaner.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T13:01:01.008Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "project.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\constitution\\articles\\project.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\constitution\\articles\\project.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\constitution\\articles\\project.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\two-pack\\dotnet-forge\\constitution\\articles\\project.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAACFAQAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T12:56:56.977Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "specifier.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\specifier.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\specifier.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\specifier.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\specifier.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAABnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T02:05:24.489Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "project.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\constitution\\articles\\project.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\constitution\\articles\\project.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\constitution\\articles\\project.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\constitution\\articles\\project.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T11:13:59.481Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "QA.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\QA.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\QA.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\QA.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\QA.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T02:05:19.397Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "hardener.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\hardener.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\hardener.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\hardener.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\hardener.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAABdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T02:05:06.314Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "architect.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\roles\\architect.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\roles\\architect.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\roles\\architect.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\roles\\architect.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAADEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T11:12:55.36Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "project.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\constitution\\articles\\project.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\constitution\\articles\\project.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\constitution\\articles\\project.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\constitution\\articles\\project.prompt",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAqwCIAAACFAQAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T11:11:48.892Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "coder.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\coder.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\coder.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\coder.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\coder.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T02:04:57.595Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "constitution.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\constitution.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\constitution.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\constitution.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\constitution.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T02:05:30.206Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "coder.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\roles\\coder.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\roles\\coder.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\roles\\coder.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\roles\\coder.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T12:18:36.533Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "cleaner.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\cleaner.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\cleaner.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\cleaner.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\cleaner.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T02:04:53.568Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "architect.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\architect.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\architect.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\architect.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\roles\\architect.prompt",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAABYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T02:04:49.289Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "local-workflow.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\constitution\\articles\\local-workflow.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\constitution\\articles\\local-workflow.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\constitution\\articles\\local-workflow.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\constitution\\articles\\local-workflow.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T12:40:19.677Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "local-engineering.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\constitution\\articles\\local-engineering.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\constitution\\articles\\local-engineering.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\constitution\\articles\\local-engineering.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\six-pack\\dotnet-forge\\constitution\\articles\\local-engineering.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T12:39:57.504Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "constitution.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\constitution.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\constitution.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\constitution.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\constitution.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T11:13:00.421Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "specifier.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\roles\\specifier.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\roles\\specifier.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\roles\\specifier.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\roles\\specifier.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T12:37:04.694Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "refactorer.prompt",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\roles\\refactorer.prompt",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\roles\\refactorer.prompt",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\roles\\refactorer.prompt",
+              "RelativeToolTip": "src\\DotnetForge.Core\\Assets\\Packs\\four-pack\\dotnet-forge\\roles\\refactorer.prompt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-27T12:22:34.992Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

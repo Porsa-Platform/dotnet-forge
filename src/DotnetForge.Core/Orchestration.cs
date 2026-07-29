@@ -69,36 +69,26 @@ public sealed class PackMaterializer(IPackRegistry packRegistry)
 
         var scripts = new Dictionary<string, string>(StringComparer.Ordinal)
         {
-            ["handoff_queue.cs"] = "handoff queue",
-            ["ready_for_next.cs"] = "handoff next",
-            ["done_with_current.cs"] = "handoff done",
+            ["handoff_queue.sh"] = "handoff queue",
+            ["ready_for_next.sh"] = "handoff next",
+            ["done_with_current.sh"] = "handoff done",
         };
 
         foreach (var (name, command) in scripts)
         {
             var path = Path.Combine(scriptsDirectory, name);
-            File.WriteAllText(path, BuildCsScript(command), Encoding.UTF8);
+            File.WriteAllText(path, BuildShScript(command), Encoding.UTF8);
             TryMakeExecutable(path);
         }
 
-        var closeForge = Path.Combine(configuration.WorkingDirectory, "close-forge.cs");
-        File.WriteAllText(closeForge, BuildCsScript("stop"), Encoding.UTF8);
+        var closeForge = Path.Combine(configuration.WorkingDirectory, "close-forge.sh");
+        File.WriteAllText(closeForge, BuildShScript("stop"), Encoding.UTF8);
         TryMakeExecutable(closeForge);
     }
 
-    private static string BuildCsScript(string subCommand)
+    private static string BuildShScript(string subCommand)
     {
-        var args = subCommand.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        var argsLiteral = string.Join(", ", args.Select(a => $"\"{a}\""));
-        return $$"""
-            #!/usr/bin/env -S dotnet run
-            using System.Diagnostics;
-            var psi = new ProcessStartInfo("dotnet-forge") { UseShellExecute = false };
-            foreach (var a in new[] { {{argsLiteral}} }.Concat(args)) psi.ArgumentList.Add(a);
-            var p = Process.Start(psi) ?? throw new InvalidOperationException("Failed to start dotnet-forge");
-            p.WaitForExit();
-            return p.ExitCode;
-            """;
+        return $"dotnet-forge {subCommand} \"$@\"";
     }
 
     private static void TryMakeExecutable(string path)
@@ -220,6 +210,7 @@ public sealed class WorkspacePreparationService(ICommandRunner commandRunner)
     {
         var paths = ProjectPaths.For(configuration.WorkingDirectory);
         EnsureDependency("git");
+        EnsureDependency("tmux");
         EnsureDependency(configuration.AgentBackend);
         InitializeRepository(paths);
         EnsureRuntimeIgnore(paths);
@@ -228,7 +219,9 @@ public sealed class WorkspacePreparationService(ICommandRunner commandRunner)
 
     private void EnsureDependency(string tool)
     {
-        var result = commandRunner.Run("sh", ["-lc", $"command -v {tool} >/dev/null 2>&1"], throwOnError: false);
+        // On Windows, 'tmux' is only available inside Git Bash — check via bash
+        var shell = OperatingSystem.IsWindows() ? "bash" : "sh";
+        var result = commandRunner.Run(shell, ["-lc", $"command -v {tool} >/dev/null 2>&1"], throwOnError: false);
         if (result.ExitCode != 0)
         {
             throw new ForgeException($"'{tool}' is required but was not found on PATH.");
@@ -292,7 +285,7 @@ public sealed class WorkspacePreparationService(ICommandRunner commandRunner)
 
 public sealed class AgentLaunchCommandBuilder
 {
-    public string WritePromptFile(ProjectPaths paths, RuntimeRole role)
+    public void WritePromptFile(ProjectPaths paths, RuntimeRole role)
     {
         Directory.CreateDirectory(paths.PromptsDirectory);
         var promptFile = Path.Combine(paths.PromptsDirectory, $"{role.Role}.md");
@@ -301,28 +294,62 @@ public sealed class AgentLaunchCommandBuilder
             $"Read dotnet-forge/constitution.prompt, then read every file it refers to recursively, and obey all of those instructions.{Environment.NewLine}" +
             $"Read dotnet-forge/roles/{role.Role}.prompt, then read every file it refers to recursively, and follow all of those instructions.{Environment.NewLine}",
             Encoding.UTF8);
-        return promptFile;
     }
 
-    public string Build(RuntimeRole role, string promptFile)
+    public (string FileName, IReadOnlyList<string> Arguments) Build(
+        RuntimeRole role, string promptFile, ProjectPaths paths)
     {
+        var promptText = string.Join(" ", File.ReadAllLines(promptFile, Encoding.UTF8).Select(line => line.Trim())).Trim();
         var scriptsDirectory = Path.Combine(role.WorktreePath, "dotnet-forge", "scripts");
-        var basePrefix =
-            $"export DOTNET_FORGE_ROLE={Shell.Quote(role.Role)} && " +
-            $"export PATH={Shell.Quote(scriptsDirectory)}:$PATH && " +
-            $"cd {Shell.Quote(role.WorktreePath)} && ";
-        var promptArgument = $"\"$(cat {Shell.Quote(promptFile)})\"";
-        var displayName = Shell.Quote($"DotnetForge {role.DisplayName}");
 
         return role.Agent switch
         {
-            "claude" => basePrefix + $"claude --append-system-prompt-file {Shell.Quote(promptFile)} --permission-mode acceptEdits -n {displayName} {promptArgument}",
-            "codex" => basePrefix + $"codex -C {Shell.Quote(role.WorktreePath)} {promptArgument}",
-            "copilot" => basePrefix + $"copilot -C {Shell.Quote(role.WorktreePath)} --name {displayName} -i {promptArgument}",
-            "opencode" => basePrefix + $"opencode run {promptArgument}",
-            "grok" => basePrefix + $"grok --cwd {Shell.Quote(role.WorktreePath)} --permission-mode acceptEdits --rules {promptArgument} --verbatim {promptArgument}",
+            "opencode" => (
+                FindAgentExecutable("opencode"),
+                [role.WorktreePath, "--prompt", promptText]),
+
+            "copilot" => (
+                FindAgentExecutable("copilot"),
+                ["-C", role.WorktreePath, "--name", $"DotnetForge {role.DisplayName}", "-i", promptText]),
+
+            "claude" => (
+                FindAgentExecutable("claude"),
+                ["--append-system-prompt-file", promptFile, "--permission-mode", "acceptEdits",
+                 "-n", $"DotnetForge {role.DisplayName}", promptText]),
+
+            "codex" => (
+                FindAgentExecutable("codex"),
+                ["-C", role.WorktreePath, promptText]),
+
+            "grok" => (
+                FindAgentExecutable("grok"),
+                ["--cwd", role.WorktreePath, "--permission-mode", "acceptEdits", "--rules", promptText, "--verbatim", promptText]),
+
             _ => throw new ForgeException($"Unsupported agent backend '{role.Agent}'.", 2),
         };
+    }
+
+    private static string FindAgentExecutable(string name)
+    {
+        if (OperatingSystem.IsWindows())
+        {
+            // Look for npm-installed executables in common global locations
+            var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var candidateDirs = new[]
+            {
+                Path.Combine(appData, "npm", "node_modules", $"{name}-ai", "bin"),
+                Path.Combine(appData, "npm", "node_modules", name, "bin"),
+            };
+
+            foreach (var dir in candidateDirs)
+            {
+                var exe = Path.Combine(dir, $"{name}.exe");
+                if (File.Exists(exe)) return exe;
+            }
+
+            // Fallback: let the OS resolve it via PATH
+        }
+        return name;
     }
 }
 
@@ -332,7 +359,8 @@ public sealed class RunOrchestrator(
     WorkspacePreparationService workspacePreparationService,
     RuntimeStateStore runtimeStateStore,
     AgentLaunchCommandBuilder agentLaunchCommandBuilder,
-    HandoffDaemon handoffDaemon)
+    HandoffDaemon handoffDaemon,
+    ICommandRunner commandRunner)
 {
     public async Task<RunSummary> RunAsync(LaunchOptions options, CancellationToken cancellationToken = default)
     {
@@ -354,7 +382,31 @@ public sealed class RunOrchestrator(
                 File.Delete(paths.StopFile);
             }
 
-            var agentProcesses = new Dictionary<string, (Process Process, StreamWriter StdinWriter)>(StringComparer.Ordinal);
+            // --- TUI setup (dashboard only) ---
+            using var tui = new ForgeTui(runtimeRoles,
+                packId: effectiveConfiguration.SelectedPack.Id,
+                workingDirectory: effectiveConfiguration.WorkingDirectory);
+            tui.Start();
+            tui.SetStatusMessage("Launching agents via tmux…");
+
+            // Create tmux socket in /tmp (Unix-compatible filesystem needed for Git Bash).
+            // Upstream swarmforge uses /tmp/swarmforge-<user>/<hash>.sock
+            var userName = Environment.GetEnvironmentVariable("USERNAME")
+                ?? Environment.GetEnvironmentVariable("USER")
+                ?? "dotnet-forge";
+            var projectHash = Math.Abs(effectiveConfiguration.WorkingDirectory.GetHashCode(StringComparison.Ordinal)).ToString("x8");
+            var tmuxSocketDir = $"/tmp/dotnet-forge-{userName}";
+            var tmuxSocket = $"{tmuxSocketDir}/{projectHash}.sock";
+
+            // Store socket path for stop/reference
+            File.WriteAllText(paths.TmuxSocketFile, tmuxSocket + Environment.NewLine);
+
+            // Create socket dir (Unix-compatible, must exist before tmux can create the socket)
+            RunBash($"mkdir -p \"{tmuxSocketDir}\"");
+
+            // Kill any leftover sessions from previous runs
+            try { RunTmux($"-S \"{tmuxSocket}\" list-sessions", throwOnError: false); } catch { }
+
             var delay = effectiveConfiguration.ProjectConfiguration.AgentStartDelayMs;
 
             for (var index = 0; index < runtimeRoles.Count; index++)
@@ -365,86 +417,179 @@ public sealed class RunOrchestrator(
                     await Task.Delay(delay, cancellationToken);
                 }
 
-                var promptFile = agentLaunchCommandBuilder.WritePromptFile(paths, role);
-                var command = agentLaunchCommandBuilder.Build(role, promptFile);
-                var process = LaunchAgentProcess(command, role.WorktreePath);
-                runtimeStateStore.SavePid(paths, role.Role, process.Id);
-                agentProcesses[role.Session] = (process, process.StandardInput);
-                executedCommands.Add(command);
+                agentLaunchCommandBuilder.WritePromptFile(paths, role);
+                var (exe, args) = agentLaunchCommandBuilder.Build(role,
+                    Path.Combine(paths.PromptsDirectory, $"{role.Role}.md"), paths);
+
+                tui.Trace(role.Role, $"Creating tmux session: {role.Session} in {role.WorktreePath}");
+
+                // Create detached tmux session (routed through bash on Windows)
+                RunTmux($"-S \"{tmuxSocket}\" new-session -d -s \"{role.Session}\" -c \"{TmuxHelper.ToUnixPath(role.WorktreePath)}\"");
+
+                // Build the full command to send into the tmux session.
+                // Convert Windows paths to Unix-style (/c/Users/...) so bash inside tmux can execute them.
+                var unixExe = TmuxHelper.ToUnixPath(exe);
+                var argsStr = string.Join(" ", args.Select(a =>
+                {
+                    var converted = TmuxHelper.ToAbsolutePathArg(a);
+                    return converted.Contains(' ') ? $"\"{converted.Replace("\"", "\\\"")}\"" : converted;
+                }));
+                var fullCmd = $"{unixExe} {argsStr}";
+                // Escape for tmux send-keys -l (literal text)
+                var literalCmd = fullCmd.Replace("\\", "\\\\").Replace("\"", "\\\"");
+
+                // Send the initial command into the session
+                RunTmux($"-S \"{tmuxSocket}\" send-keys -t \"{role.Session}\" -l \"{literalCmd}\"");
+                RunTmux($"-S \"{tmuxSocket}\" send-keys -t \"{role.Session}\" Enter");
+
+                executedCommands.Add($"{exe} {string.Join(" ", args)}");
+                tui.Trace(role.Role, $"Started tmux session: {role.Session}");
+                tui.SetStatus(role.Role, $"running in tmux");
             }
 
-            var stdinWriters = agentProcesses.ToDictionary(
-                kvp => kvp.Key,
-                kvp => kvp.Value.StdinWriter,
-                StringComparer.Ordinal);
-            var notifier = new ProcessAgentNotifier(stdinWriters);
+            // Use tmux-based notifier — sends keys directly into agent sessions
+            var notifier = new TmuxAgentNotifier(tmuxSocket, commandRunner);
 
-            using var daemonCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+            var daemonCts = new CancellationTokenSource();
             var daemonTask = handoffDaemon.RunAsync(effectiveConfiguration.WorkingDirectory, daemonCts.Token, notifier);
 
-            // Monitor stop file and wait until stopped or cancelled
+            tui.SetStatusMessage("All agents launched. Monitoring… (dotnet-forge stop to quit)");
+
+            // --- Monitoring loop ---
             try
             {
                 while (!cancellationToken.IsCancellationRequested && !File.Exists(paths.StopFile))
                 {
-                    await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+                    await Task.Delay(1000, cancellationToken);
                 }
             }
-            catch (OperationCanceledException)
-            {
-                // Cancelled via Ctrl+C or token
-            }
+            catch (OperationCanceledException) { }
 
-            await daemonCts.CancelAsync();
+            tui.SetStatusMessage("Shutting down…");
+
+            daemonCts.Cancel();
             try { await daemonTask; } catch (OperationCanceledException) { }
 
-            foreach (var (process, _) in agentProcesses.Values)
+            // Kill all tmux sessions
+            foreach (var role in runtimeRoles)
             {
                 try
                 {
-                    if (!process.HasExited)
-                    {
-                        process.Kill(entireProcessTree: true);
-                    }
-                    process.Dispose();
+                    RunTmux($"-S \"{tmuxSocket}\" kill-session -t \"{role.Session}\"", throwOnError: false);
                 }
-                catch
-                {
-                    // Best-effort cleanup
-                }
+                catch { }
             }
         }
         else
         {
             foreach (var role in runtimeRoles)
             {
-                var promptFile = agentLaunchCommandBuilder.WritePromptFile(paths, role);
-                executedCommands.Add(agentLaunchCommandBuilder.Build(role, promptFile));
+                agentLaunchCommandBuilder.WritePromptFile(paths, role);
+                var (exe, args) = agentLaunchCommandBuilder.Build(role,
+                    Path.Combine(paths.PromptsDirectory, $"{role.Role}.md"), paths);
+                executedCommands.Add($"{exe} {string.Join(" ", args)}");
             }
         }
 
         return new RunSummary(effectiveConfiguration, paths, runtimeRoles, executedCommands);
     }
 
-    private static Process LaunchAgentProcess(string shellCommand, string workingDirectory)
+    private void RunTmux(string tmuxArgs, bool throwOnError = true)
     {
-        var startInfo = new ProcessStartInfo("sh")
-        {
-            UseShellExecute = false,
-            RedirectStandardInput = true,
-            RedirectStandardOutput = false,
-            RedirectStandardError = false,
-            WorkingDirectory = workingDirectory,
-        };
-        startInfo.ArgumentList.Add("-lc");
-        startInfo.ArgumentList.Add(shellCommand);
+        TmuxHelper.Run(commandRunner, tmuxArgs, throwOnError);
+    }
 
-        return Process.Start(startInfo)
-            ?? throw new InvalidOperationException($"Failed to launch agent process in '{workingDirectory}'.");
+    private void RunBash(string command, bool throwOnError = true)
+    {
+        var shell = OperatingSystem.IsWindows() ? "bash" : "sh";
+        commandRunner.Run(shell, ["-c", command], throwOnError: throwOnError);
     }
 }
 
-public sealed class StopOrchestrator(RuntimeStateStore runtimeStateStore)
+internal static class TmuxHelper
+{
+    private static string? _drivePrefix;
+    private static readonly object _lock = new();
+
+    /// <summary>
+    /// Returns "/mnt/" on WSL2 (where C:\ is /mnt/c) or "/" on Git Bash (where C:\ is /c).
+    /// Probes via bash so it works from a Windows .NET host calling into WSL bash.
+    /// </summary>
+    private static string DrivePrefix
+    {
+        get
+        {
+            if (_drivePrefix is not null) return _drivePrefix;
+            lock (_lock)
+            {
+                if (_drivePrefix is not null) return _drivePrefix;
+
+                if (!OperatingSystem.IsWindows())
+                {
+                    _drivePrefix = "";
+                    return _drivePrefix;
+                }
+
+                try
+                {
+                    var psi = new System.Diagnostics.ProcessStartInfo("bash", "-c \"test -d /mnt/c && echo wsl\"")
+                    {
+                        RedirectStandardOutput = true,
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                    };
+                    using var proc = System.Diagnostics.Process.Start(psi);
+                    proc?.WaitForExit(3000);
+                    _drivePrefix = proc?.StandardOutput.ReadToEnd().Trim() == "wsl" ? "/mnt/" : "/";
+                }
+                catch
+                {
+                    _drivePrefix = "/";
+                }
+
+                return _drivePrefix;
+            }
+        }
+    }
+
+    public static void Run(ICommandRunner runner, string tmuxArgs, bool throwOnError = true)
+    {
+        if (OperatingSystem.IsWindows())
+        {
+            runner.Run("bash", ["-c", $"tmux {tmuxArgs}"], throwOnError: throwOnError);
+        }
+        else
+        {
+            runner.Run("sh", ["-lc", $"tmux {tmuxArgs}"], throwOnError: throwOnError);
+        }
+    }
+
+    /// <summary>Convert C:\Users\... to /mnt/c/Users/... (WSL) or /c/Users/... (Git Bash).</summary>
+    public static string ToUnixPath(string path)
+    {
+        if (!OperatingSystem.IsWindows() || path.Length < 2 || path[1] != ':') return path;
+        return DrivePrefix + char.ToLowerInvariant(path[0]) + path[2..].Replace('\\', '/');
+    }
+
+    /// <summary>
+    /// If the argument looks like a Windows absolute path (X:\...),
+    /// convert it to a Unix path (/mnt/x/... or /x/...). Otherwise return as-is.
+    /// </summary>
+    public static string ToAbsolutePathArg(string arg)
+    {
+        if (OperatingSystem.IsWindows()
+            && arg.Length >= 3
+            && arg[1] == ':'
+            && arg[2] == '\\'
+            && char.IsLetter(arg[0]))
+        {
+            return ToUnixPath(arg);
+        }
+        return arg;
+    }
+}
+
+public sealed class StopOrchestrator(RuntimeStateStore runtimeStateStore, ICommandRunner commandRunner)
 {
     public void Stop(string workingDirectory)
     {
@@ -452,30 +597,23 @@ public sealed class StopOrchestrator(RuntimeStateStore runtimeStateStore)
         Directory.CreateDirectory(Path.GetDirectoryName(paths.StopFile)!);
         File.WriteAllText(paths.StopFile, string.Empty, Encoding.UTF8);
 
-        // Attempt to kill any tracked agent processes directly
-        if (File.Exists(paths.RolesFile))
+        // Kill all tmux sessions for this project
+        if (File.Exists(paths.TmuxSocketFile))
         {
+            var socket = File.ReadAllText(paths.TmuxSocketFile).Trim();
             foreach (var role in runtimeStateStore.LoadRoles(workingDirectory))
             {
-                var pid = runtimeStateStore.LoadPid(paths, role.Role);
-                if (pid is null)
-                {
-                    continue;
-                }
-
                 try
                 {
-                    var process = Process.GetProcessById(pid.Value);
-                    if (!process.HasExited)
-                    {
-                        process.Kill(entireProcessTree: true);
-                    }
+                    RunTmux($"-S \"{socket}\" kill-session -t \"{role.Session}\"", throwOnError: false);
                 }
-                catch
-                {
-                    // Process may have already exited
-                }
+                catch { }
             }
         }
+    }
+
+    private void RunTmux(string tmuxArgs, bool throwOnError = true)
+    {
+        TmuxHelper.Run(commandRunner, tmuxArgs, throwOnError);
     }
 }

@@ -29,8 +29,8 @@ public sealed class DefaultPackRegistry : IPackRegistry
                 "Fast implementation and cleanup loop.",
                 "coder -> cleaner -> coder",
                 [
-                    new RoleDefinition("coder", "codex", "master", ReceiveMode.Task),
-                    new RoleDefinition("cleaner", "codex", "cleaner", ReceiveMode.Batch),
+                    new RoleDefinition("coder", "opencode", "master", ReceiveMode.Task),
+                    new RoleDefinition("cleaner", "opencode", "cleaner", ReceiveMode.Batch),
                 ]),
             [PackIds.FourPack] = new(
                 PackIds.FourPack,
@@ -38,10 +38,10 @@ public sealed class DefaultPackRegistry : IPackRegistry
                 "Compact spec-driven workflow.",
                 "specifier -> coder -> refactorer -> architect -> specifier",
                 [
-                    new RoleDefinition("specifier", "codex", "master", ReceiveMode.Task),
-                    new RoleDefinition("coder", "codex", "coder", ReceiveMode.Task),
-                    new RoleDefinition("refactorer", "codex", "refactorer", ReceiveMode.Task),
-                    new RoleDefinition("architect", "codex", "architect", ReceiveMode.Batch),
+                    new RoleDefinition("specifier", "opencode", "master", ReceiveMode.Task),
+                    new RoleDefinition("coder", "opencode", "coder", ReceiveMode.Task),
+                    new RoleDefinition("refactorer", "opencode", "refactorer", ReceiveMode.Task),
+                    new RoleDefinition("architect", "opencode", "architect", ReceiveMode.Batch),
                 ]),
             [PackIds.SixPack] = new(
                 PackIds.SixPack,
@@ -49,12 +49,12 @@ public sealed class DefaultPackRegistry : IPackRegistry
                 "Full workflow with separated quality gates.",
                 "specifier -> coder -> cleaner -> architect -> hardener -> QA",
                 [
-                    new RoleDefinition("specifier", "codex", "master", ReceiveMode.Task),
-                    new RoleDefinition("coder", "codex", "coder", ReceiveMode.Task),
-                    new RoleDefinition("cleaner", "codex", "cleaner", ReceiveMode.Batch),
-                    new RoleDefinition("architect", "codex", "architect", ReceiveMode.Batch),
-                    new RoleDefinition("hardener", "codex", "hardener", ReceiveMode.Batch),
-                    new RoleDefinition("QA", "codex", "QA", ReceiveMode.Batch),
+                    new RoleDefinition("specifier", "opencode", "master", ReceiveMode.Task),
+                    new RoleDefinition("coder", "opencode", "coder", ReceiveMode.Task),
+                    new RoleDefinition("cleaner", "opencode", "cleaner", ReceiveMode.Batch),
+                    new RoleDefinition("architect", "opencode", "architect", ReceiveMode.Batch),
+                    new RoleDefinition("hardener", "opencode", "hardener", ReceiveMode.Batch),
+                    new RoleDefinition("QA", "opencode", "QA", ReceiveMode.Batch),
                 ]),
         };
 
