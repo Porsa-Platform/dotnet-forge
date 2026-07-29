@@ -4,7 +4,7 @@
 - This project is configured for dotnet-forge with two Codex-backed agents:
   coder and cleaner.
 - The coder is the master worktree role.
-- Project language: Babashka.
+- Project language: .NET/C#.
 
 ## Local Configuration
 - Preserve project-local dotnet-forge configuration under `dotnet-forge/`.
@@ -25,3 +25,13 @@
 ## Ownership
 - Do not change another role's prompt or workflow ownership without explicit
   user direction.
+  
+## Language DRY tool
+To install the language DRY tool, copy the scripts from https://github.com/Porsa-Platform/dotnet-forge-dry. They are ready for immediate use by executing it as described in the readme. Use it to reduce duplication where reasonable. Any specific DRY tool usage instructions should be followed as per the readme and saved to DRY.README.md in the project for future reference.
+
+
+## Language CRAP tool
+To install the language CRAP tool, copy the scripts from https://github.com/Porsa-Platform/dotnet-forge-crap. They are ready for immediate use by executing it as described in the readme. Use it to report CRAP metrics for the project and identify high-CRAP areas that need attention. Any specific CRAP tool usage instructions should be followed as per the readme and saved to CRAP.README.md in the project for future reference.
+
+## Acceptance Pipeline Specification (APS)
+The acceptance pipeline specification can be found at: https://github.com/Porsa-Platform/dotnet-forge-spec. Copy the scripts to the project and make them ready for immediate use. Use them to run Gherkin acceptance tests and Gherkin mutation tests. Any specific APS tool usage instructions should be followed as per the readme and saved to APS.README.md in the project for future reference.

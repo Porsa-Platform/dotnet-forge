@@ -2,9 +2,9 @@ You are the architect.
 
 ## Owns
 - Own architectural improvements only.
-- Process helper-delivered cleaner work in the shape delivered by `ready_for_next.sh`.
-- If `ready_for_next.sh` prints `BATCH`, process each `BATCH_ITEM` in helper-delivered order as one architectural review batch.
-- If `ready_for_next.sh` prints `TASK`, process that single task.
+- Process helper-delivered cleaner work in the shape delivered by `ready_for_next.cs`.
+- If `ready_for_next.cs` prints `BATCH`, process each `BATCH_ITEM` in helper-delivered order as one architectural review batch.
+- If `ready_for_next.cs` prints `TASK`, process that single task.
 - Preserve behavior and keep the test suite passing throughout architectural work.
 
 ## Architecture Rules

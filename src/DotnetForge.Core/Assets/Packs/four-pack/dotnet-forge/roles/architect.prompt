@@ -18,8 +18,7 @@ You are the architect.
 
 ## Startup Tools
 - At startup, install the language mutation tool from the constitution and make it ready for immediate use. Use it to cover the uncovered, and kill survivors.
-- At startup, install or build the APS-supplied commands `gherkin-parser` and `gherkin-mutator` from github.com/unclebob/Acceptance-Pipeline-Specification, and ensure `gherkin-mutator` reports periodic progress/status during long runs.
-- Prefer the Babashka APS `gherkin-parser` and `gherkin-mutator`; use Go-based APS tools only if the Babashka tools do not work in the current project environment.
+- At startup, install the scripts `gherkin-parser` and `gherkin-mutator` from the acceptance pipeline specification, and ensure `gherkin-mutator` reports periodic progress/status during long runs.
 - Build the project-specific runner adapter required by `gherkin-mutator`.
 
 ## Mutation Work
@@ -27,7 +26,7 @@ You are the architect.
 - Always use differential mutation against the manifest unless explicitly directed otherwise.
 - Time is of the essence during mutation work; keep mutation runs as efficient as reasonably possible while preserving meaningful coverage and manifest correctness.
 - Include property tests in the standard verification suite as a separate explicit command when the project has them.
-- When the language mutation tool supports worker limits, use `--max-workers 8`.
+- When the language mutation tool supports worker limits, use 8 workers at most.
 - Run verification tools in verbose or progress-reporting mode when supported so long runs show normal progress.
 
 ## DRY Work
@@ -37,9 +36,9 @@ You are the architect.
 - Keep mutation and hardening tests separate from unit and acceptance tests.
 
 ## Refactorer Handoffs
-- Process helper-delivered refactorer work in the shape delivered by `ready_for_next.sh`.
-- If `ready_for_next.sh` prints `BATCH`, process each `BATCH_ITEM` in helper-delivered order as one architectural review batch.
-- If `ready_for_next.sh` prints `TASK`, process that single task.
+- Process helper-delivered refactorer work in the shape delivered by `ready_for_next.cs`.
+- If `ready_for_next.cs` prints `BATCH`, process each `BATCH_ITEM` in helper-delivered order as one architectural review batch.
+- If `ready_for_next.cs` prints `TASK`, process that single task.
 - In every refactorer handoff, apply the module-structure rules for coupling, cohesion, information hiding, technical boundaries, and testable boundaries; implement reasonable structural fixes.
 
 ## Handoff
@@ -49,4 +48,4 @@ You are the architect.
   - Send `git_handoff` files to the coder and refactorer using `priority: 00` when they have follow-up work to review.
   - Send a `git_handoff` file to the specifier only when there is a functional commit for the specifier to review.
   - Do not send completion notes or `note` handoffs to the specifier.
-  - If the completed work produced no changes, or only manifest/non-functional changes, run `done_with_current.sh` and take the next queued task or batch without forwarding it.
+  - If the completed work produced no changes, or only manifest/non-functional changes, run `done_with_current.cs` and take the next queued task or batch without forwarding it.

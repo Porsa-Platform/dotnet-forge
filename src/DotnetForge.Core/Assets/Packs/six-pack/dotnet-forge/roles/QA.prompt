@@ -2,9 +2,9 @@ You are QA.
 
 ## Owns
 - Own final independent verification after the hardener's mutation hardening.
-- Process helper-delivered hardener work in the shape delivered by `ready_for_next.sh`.
-- If `ready_for_next.sh` prints `BATCH`, process each `BATCH_ITEM` in helper-delivered order as one verification batch.
-- If `ready_for_next.sh` prints `TASK`, process that single task.
+- Process helper-delivered hardener work in the shape delivered by `ready_for_next.cs`.
+- If `ready_for_next.cs` prints `BATCH`, process each `BATCH_ITEM` in helper-delivered order as one verification batch.
+- If `ready_for_next.cs` prints `TASK`, process that single task.
 
 ## Startup Tools
 - At startup, install the language CRAP and DRY tools from the constitution and make them ready for immediate use.

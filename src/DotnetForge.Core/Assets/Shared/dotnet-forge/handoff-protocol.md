@@ -2,19 +2,19 @@
 
 ## Goal
 
-Replace direct agent access to the tmux socket with a daemon-owned file transport.
-Agents should not send tmux commands, manage socket permissions, or maintain a
+Replace direct agent access to the agent process stdin with a daemon-owned file transport.
+Agents should not send direct agent notifications, manage process stdin directly, or maintain a
 separate logbook. Agents should create small, validated handoff requests; the
 daemon should deliver them through durable inbox files and send only wake-up
-notifications through tmux.
+notifications through agent process stdin.
 
 ## Summary
 
-The swarm startup script starts a handoff daemon alongside the tmux session. The
-daemon has direct access to the tmux socket and watches each agent worktree for
+The swarm startup script starts a handoff daemon alongside agent processes. The
+daemon has direct access to the agent process stdin and watches each agent worktree for
 outbound handoff files. When an outbound handoff appears, the daemon validates
 delivery targets, copies the handoff into each recipient inbox, sends each
-recipient a generic tmux wake-up message, and moves the original outbound file
+recipient a generic notification message, and moves the original outbound file
 to `sent` or `failed`.
 
 The recipient inbox is the task queue. Agents use helper scripts to accept and
@@ -216,14 +216,14 @@ Waiting on QA result before merging cleanup branch.
 
 The `message` value must be a single line no longer than 80 characters.
 
-## `swarm_handoff.sh`
+## `handoff_queue.cs`
 
-`swarm_handoff.sh` should be the strict outbound protocol gate.
+`handoff_queue.cs` should be the strict outbound protocol gate.
 
 Proposed usage:
 
 ```sh
-swarm_handoff.sh ./tmp/handoff.txt
+handoff_queue.cs ./tmp/handoff.txt
 ```
 
 Responsibilities:
@@ -290,7 +290,7 @@ commit: <commit-abbrev>
 
 ## Commit Validation
 
-For `git_handoff`, `swarm_handoff.sh` should validate the commit abbreviation
+For `git_handoff`, `handoff_queue.cs` should validate the commit abbreviation
 with Git.
 
 Rules:
@@ -305,13 +305,13 @@ This prevents agents from sending corrupted or ambiguous SHA abbreviations.
 
 ## Handoff Daemon
 
-The daemon should be implemented in Babashka.
+The daemon is implemented in .NET/C# as part of the dotnet-forge runtime.
 
 Rationale:
 
 - The service is mostly filesystem traversal, parsing, sorting, renaming, and
   subprocess calls.
-- Babashka keeps the implementation small and easier to change while the
+- The .NET/C# runtime keeps the implementation integrated and easy to extend while the
   protocol is still evolving.
 
 Responsibilities:
@@ -321,63 +321,49 @@ Responsibilities:
 - Process only complete `.handoff` files, never files in `outbox/tmp/`.
 - Copy each handoff to every recipient `inbox/new/`.
 - Add `recipient` and `enqueued_at` to each recipient copy.
-- Send a generic tmux wake-up message to each recipient.
+- Send a generic notification message to each recipient.
 - Move the original outbox file to `sent/` after successful delivery.
 - Move malformed or undeliverable files to `failed/` with useful diagnostics.
 - Avoid duplicate delivery when retrying after interruption.
 
-The tmux message should not name the delivered file. It should avoid biasing the
+The notification message should not name the delivered file. It should avoid biasing the
 recipient toward one file and should force queue-order processing.
 
-Example tmux wake-up:
+Example notification:
 
 ```text
-You have new handoff mail. If idle, run ready_for_next.sh.
+You have new handoff mail. If idle, run ready_for_next.cs.
 ```
 
 ## Queue Helper Scripts
 
 Agents should not manually move inbox files. Helper scripts should own queue
-state transitions.
+state transitions. In dotnet-forge, dispatch to task or batch mode is handled
+internally based on the role's configured receive mode in `.dotnet-forge/roles.tsv`.
 
-### `ready_for_next.sh`
+### `ready_for_next.cs`
 
 Responsibilities:
 
 - Run inside one agent worktree.
-- Read the current role from `SWARMFORGE_ROLE`.
+- Read the current role from `DOTNET_FORGE_ROLE`.
 - Read that role's receive mode from `.dotnet-forge/roles.tsv`.
-- Dispatch to `ready_for_next_task.sh` for `task` mode.
-- Dispatch to `ready_for_next_batch.sh` for `batch` mode.
-
-### `done_with_current.sh`
-
-Responsibilities:
-
-- Run inside one agent worktree.
-- Read the current role from `SWARMFORGE_ROLE`.
-- Read that role's receive mode from `.dotnet-forge/roles.tsv`.
-- Dispatch to `done_with_current_task.sh` for `task` mode.
-- Dispatch to `done_with_current_batch.sh` for `batch` mode.
-
-### `ready_for_next_task.sh`
-
-Responsibilities:
-
-- Run inside one agent worktree.
-- Check `inbox/in_process/` first.
-- If an in-process file exists, report that it must be resumed or completed
-  before accepting new work.
-- If no in-process file exists, select the first file in `inbox/new/` by sorted
-  filename order.
-- Atomically move that file to `inbox/in_process/`.
-- Add or update `dequeued_at`.
+- For `task` mode:
+  - Check `inbox/in_process/` first; if a task file exists, resume it.
+  - If no in-process file exists, select the first file in `inbox/new/` by sorted filename order.
+  - Atomically move that file to `inbox/in_process/`.
+  - Add or update `dequeued_at`.
+  - Print `NO_TASK` if no inbox item is available.
+- For `batch` mode:
+  - Check `inbox/in_process/` first; if a batch directory exists, resume it.
+  - If no in-process batch exists, select all `inbox/new/` files with the same priority as the first file.
+  - Move those files into one `inbox/in_process/batch_<timestamp>_<suffix>/` directory.
+  - Add or update `dequeued_at` on each selected file.
+  - Print `NO_TASK` if no inbox item is available.
 - Print the accepted task path, sender, message type, priority, and payload.
-- Print `NO_TASK` if no inbox item is available.
-- Refuse ambiguous states, such as multiple in-process files, unless an explicit
-  repair is made outside the helper.
+- Refuse ambiguous states unless an explicit repair is made outside the helper.
 
-Example success:
+Example success (task mode):
 
 ```text
 TASK: .dotnet-forge/handoffs/inbox/in_process/00_20260615T140531Z_000042_from_architect_to_coder.handoff
@@ -391,72 +377,26 @@ Re-read your role and constitution.
 merge_and_process architect a1b2c3d9
 ```
 
-### `done_with_current_task.sh`
+### `done_with_current.cs`
 
 Responsibilities:
 
 - Run inside one agent worktree.
-- Require exactly one file in `inbox/in_process/`.
-- Refuse to run if `inbox/in_process/` contains a batch directory.
-- Add or update `completed_at`.
-- Move the file to `inbox/completed/`.
-- Print the completed task path.
-- Call `ready_for_next_task.sh` after completion and pass through its output.
-- Refuse to run if there are zero or multiple in-process files, unless an
-  explicit repair is made outside the helper.
-
-`done_with_current_task.sh` should not duplicate queue-selection logic.
-`ready_for_next_task.sh` should remain the single owner of checking
-`inbox/in_process/`, selecting the next sorted `inbox/new/` item, moving it to
-`inbox/in_process/`, adding `dequeued_at`, and printing `TASK` or `NO_TASK`.
-
-### `ready_for_next_batch.sh`
-
-Responsibilities:
-
-- Run inside one agent worktree.
-- Check `inbox/in_process/` first.
-- If an in-process batch exists, print that batch.
-- Refuse to run if a single in-process task exists.
-- If no in-process work exists, select the first file in `inbox/new/` by sorted
-  filename order.
-- Select every queued handoff with the same priority as that first file.
-- Move those files into one `inbox/in_process/batch_<timestamp>_<suffix>/`
-  directory.
-- Add or update `dequeued_at` on each selected file.
-- Print the accepted batch path, count, priority, and each task payload in
-  helper-delivered order.
-- Print `NO_TASK` if no inbox item is available.
-- Refuse ambiguous states, such as multiple in-process batches, unless an
-  explicit repair is made outside the helper.
-
-### `done_with_current_batch.sh`
-
-Responsibilities:
-
-- Run inside one agent worktree.
-- Require exactly one batch directory in `inbox/in_process/`.
-- Refuse to run if `inbox/in_process/` contains a single task file.
-- Add or update `completed_at` on each file in the batch.
-- Move the batch directory to `inbox/completed/`.
-- Print the completed task paths and completed batch path.
-- Call `ready_for_next_batch.sh` after completion and pass through its output.
-- Refuse to run if there are zero or multiple in-process batches, unless an
-  explicit repair is made outside the helper.
-
-Example success:
-
-```text
-COMPLETED: .dotnet-forge/handoffs/inbox/completed/00_20260615T140531Z_000042_from_architect_to_coder.handoff
-TASK: .dotnet-forge/handoffs/inbox/in_process/50_20260615T140600Z_000043_from_cleaner_to_coder.handoff
-FROM: cleaner
-TYPE: note
-PRIORITY: 50
-PAYLOAD:
-Re-read your role and constitution.
-
-Waiting on QA result before merging cleanup branch.
-```
+- Read the current role from `DOTNET_FORGE_ROLE`.
+- Read that role's receive mode from `.dotnet-forge/roles.tsv`.
+- For `task` mode:
+  - Require exactly one file in `inbox/in_process/`; refuse if a batch directory is present.
+  - Add or update `completed_at`.
+  - Move the file to `inbox/completed/`.
+  - Print the completed task path.
+  - Call `ready_for_next.cs` and pass through its output.
+- For `batch` mode:
+  - Require exactly one batch directory in `inbox/in_process/`; refuse if a single task file is present.
+  - Add or update `completed_at` on each file in the batch.
+  - Move the batch directory to `inbox/completed/`.
+  - Print the completed batch path.
+  - Call `ready_for_next.cs` and pass through its output.
+- Refuse ambiguous states unless an explicit repair is made outside the helper.
 
 Example success with no queued follow-up:
 
@@ -464,30 +404,29 @@ Example success with no queued follow-up:
 COMPLETED: .dotnet-forge/handoffs/inbox/completed/00_20260615T140531Z_000042_from_architect_to_coder.handoff
 NO_TASK
 ```
-
 ## Agent Queue Rules
 
 Prompts should instruct agents to follow this loop:
 
-1. When notified, run `ready_for_next.sh`.
-2. Let `ready_for_next.sh` dispatch according to the receive mode configured for
+1. When notified, run `ready_for_next.cs`.
+2. Let `ready_for_next.cs` dispatch according to the receive mode configured for
    your role.
 3. If it prints `NO_TASK`, stop waiting for work.
 4. If it prints `TASK: <path>`, treat the printed `PAYLOAD` as the task.
 5. If it prints `BATCH: <path>`, treat each printed `BATCH_ITEM` as part of the
    current batch in helper-delivered order.
 6. Use only the task information printed by the helper scripts.
-7. If a tmux wake-up arrives while already working on a task, ignore it.
-8. When the task or batch is fully complete, run `done_with_current.sh`.
+7. If a notification arrives while already working on a task, ignore it.
+8. When the task or batch is fully complete, run `done_with_current.cs`.
 9. Treat `note` handoffs as tasks too; after reading or acting on a note, run
-   `done_with_current.sh` before accepting any other handoff.
+   `done_with_current.cs` before accepting any other handoff.
 10. If a done helper prints `TASK: <path>`, treat the printed `PAYLOAD` as the
    next task.
 11. If a done helper prints `BATCH: <path>`, treat each printed `BATCH_ITEM` as
    part of the next batch in helper-delivered order.
 12. If a done helper prints `NO_TASK`, stop waiting for work.
 
-On restart, an agent should run `ready_for_next.sh` and follow its output.
+On restart, an agent should run `ready_for_next.cs` and follow its output.
 
 Tmux wake-ups are intentionally lossy. They only prompt an idle agent to check
 its durable inbox. A busy agent can ignore them because task completion also
@@ -514,13 +453,11 @@ completed_at
 
 Lifecycle ownership:
 
-- `swarm_handoff.sh` writes `id`, `from`, `to`, `priority`, `type`, and
+- `handoff_queue.cs` writes `id`, `from`, `to`, `priority`, `type`, and
   `created_at`.
-- `handoffd` writes `recipient` and `enqueued_at` into each recipient copy.
-- `ready_for_next_task.sh` writes `dequeued_at`.
-- `ready_for_next_batch.sh` writes `dequeued_at`.
-- `done_with_current_task.sh` writes `completed_at`.
-- `done_with_current_batch.sh` writes `completed_at`.
+- `HandoffDaemon` writes `recipient` and `enqueued_at` into each recipient copy.
+- `ready_for_next.cs` writes `dequeued_at`.
+- `done_with_current.cs` writes `completed_at`.
 
 ## Daemon Shutdown
 
@@ -528,7 +465,7 @@ The swarm launcher should own the daemon lifecycle.
 
 Startup:
 
-- Start the daemon after creating or discovering the tmux session.
+- Start the daemon after launching agent processes.
 - Write daemon runtime files under `.dotnet-forge/daemon/`.
 
 Runtime files:
@@ -559,27 +496,21 @@ Delivery should be transaction-like:
 
 ## Implemented Helpers
 
-The current daemon-backed protocol uses these helper scripts:
+The current daemon-backed protocol uses these helpers:
 
-- `swarm_handoff.sh` validates and queues outbound handoff drafts.
-- `ready_for_next.sh` dispatches to the correct ready helper for the current
-  role's configured receive mode.
-- `done_with_current.sh` dispatches to the correct done helper for the current
-  role's configured receive mode.
-- `ready_for_next_task.sh` accepts or resumes one current task.
-- `done_with_current_task.sh` completes one current task.
-- `ready_for_next_batch.sh` accepts or resumes one current batch.
-- `done_with_current_batch.sh` completes one current batch.
-- `handoffd` delivers queued outbox files and sends generic wake-ups.
+- `handoff_queue.cs` validates and queues outbound handoff drafts.
+- `ready_for_next.cs` accepts or resumes the current task or batch, dispatching by receive mode.
+- `done_with_current.cs` completes the current task or batch, dispatching by receive mode.
+- `HandoffDaemon` delivers queued outbox files and sends generic notifications via agent stdin.
 
-Agents should not use direct tmux notifications, long handoff bodies, logbooks,
+Agents should not use direct agent notifications, long handoff bodies, logbooks,
 or the removed send/receive/complete/resend wrapper scripts.
 
 ## Finalized Decisions
 
-- The handoff daemon is written in Babashka.
+- The handoff daemon is implemented in .NET/C# (HandoffDaemon class in DotnetForge.Core).
 - Git handoff commit abbreviations are exactly 10 hexadecimal characters.
 - `note` handoffs have no optional classification field.
 - Helper scripts do not provide recovery modes for ambiguous queue state.
 - The daemon does not perform a second full validation pass on outbox files;
-  `swarm_handoff.sh` is the validation boundary.
+  `handoff_queue.cs` is the validation boundary.
