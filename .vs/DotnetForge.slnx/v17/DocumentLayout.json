@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6C65B653-3159-7738-B192-8E43C254EFA2}|src\\DotnetForge.Cli\\DotnetForge.Cli.csproj|c:\\users\\bugmaker\\source\\repos\\dotnet-forge\\src\\dotnetforge.cli\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C65B653-3159-7738-B192-8E43C254EFA2}|src\\DotnetForge.Cli\\DotnetForge.Cli.csproj|solutionrelative:src\\dotnetforge.cli\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{5a4e9529-b6a0-46b5-be4f-0f0b239bc0eb}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Cli\\Program.cs",
+              "RelativeDocumentMoniker": "src\\DotnetForge.Cli\\Program.cs",
+              "ToolTip": "C:\\Users\\bugmaker\\source\\repos\\dotnet-forge\\src\\DotnetForge.Cli\\Program.cs",
+              "RelativeToolTip": "src\\DotnetForge.Cli\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-27T00:40:24.688Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

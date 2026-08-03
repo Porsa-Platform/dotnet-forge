@@ -1,0 +1,35 @@
+# Project Rules
+
+## Project Shape
+- This project is configured for dotnet-forge with six Copilot-backed agents: specifier, coder, cleaner, architect, hardener, and QA.
+- Project language: .NET/C#.
+
+## Local Configuration
+- Preserve project-local dotnet-forge configuration under `dotnet-forge/`.
+- Keep swarm state local under `.dotnet-forge/`, worktrees under `.worktrees/`, and shared scripts under `dotnet-forge/scripts/`.
+
+## Handoffs
+- Prefer terse, explicit handoffs that report state and request role-appropriate review. Do not include verifications or sender process narrative.
+
+## Ownership
+- Do not change another role's prompt or workflow ownership without explicit user direction.
+
+## Language mutation tool
+The default language mutation tool is Stryker .net. To run mutation work, follow these rules:
+
+- Run Stryker.NET one file at a time in sequence, scoping each run to a single file with `--mutate "<relative/path/to/File.cs>"`.
+- Always use differential mutation against the manifest unless explicitly directed otherwise: only invoke Stryker on files the manifest marks as changed. Fall back to Stryker's own `--since`/`--with-baseline` git-diff modes only if the manifest itself is unavailable.
+- Time is of the essence during mutation work; keep mutation runs as efficient as reasonably possible while preserving meaningful coverage and manifest correctness — set `--coverage-analysis perTest` so Stryker only reruns tests that actually cover each mutant, and leave bail-out enabled (default) rather than passing `--disable-bail`.
+- Include property tests (FsCheck / CsCheck) in the standard verification suite as a separate explicit `dotnet test --filter Category=Property` command when the project has them.
+- Stryker.NET supports worker limits via `--concurrency`; use `--concurrency 8`.
+- Run Stryker with the `Progress` reporter enabled (its default) so long runs show normal progress; add `--verbosity info` (or `debug` when troubleshooting a specific file) for additional detail on long runs.
+
+## Language DRY tool
+To install the language DRY tool, copy the scripts from https://github.com/Porsa-Platform/dotnet-forge-dry. They are ready for immediate use by executing it as described in the readme. Use it to reduce duplication where reasonable. Any specific DRY tool usage instructions should be followed as per the readme and saved to DRY.README.md in the project for future reference.
+
+
+## Language CRAP tool
+To install the language CRAP tool, copy the scripts from https://github.com/Porsa-Platform/dotnet-forge-crap. They are ready for immediate use by executing it as described in the readme. Use it to report CRAP metrics for the project and identify high-CRAP areas that need attention. Any specific CRAP tool usage instructions should be followed as per the readme and saved to CRAP.README.md in the project for future reference.
+
+## Acceptance Pipeline Specification (APS)
+The acceptance pipeline specification can be found at: https://github.com/Porsa-Platform/dotnet-forge-spec. Copy the scripts to the project and make them ready for immediate use. Use them to run Gherkin acceptance tests and Gherkin mutation tests. Any specific APS tool usage instructions should be followed as per the readme and saved to APS.README.md in the project for future reference.

@@ -1,0 +1,7 @@
+**/bin/
+**/obj/
+/.dotnetforge/
+/.worktrees/
+/dotnetforge/
+/close-forge
+/artifacts/
