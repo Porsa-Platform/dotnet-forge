@@ -83,7 +83,6 @@ public sealed class ForgeCommands(
     {
         await ExecuteAsync(async () =>
         {
-            await Task.Delay(4_000);
             using var cts = new CancellationTokenSource();
             Console.CancelKeyPress += (_, e) =>
             {

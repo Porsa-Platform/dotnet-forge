@@ -1,7 +1,7 @@
 # Project Rules
 
 ## Project Shape
-- This project is configured for dotnet-forge with six Codex-backed agents: specifier, coder, cleaner, architect, hardener, and QA.
+- This project is configured for dotnet-forge with six Copilot-backed agents: specifier, coder, cleaner, architect, hardener, and QA.
 - Project language: .NET/C#.
 
 ## Local Configuration

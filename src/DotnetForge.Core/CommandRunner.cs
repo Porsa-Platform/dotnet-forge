@@ -92,6 +92,8 @@ public sealed class ProcessCommandRunner : ICommandRunner
         {
             RedirectStandardOutput = true,
             RedirectStandardError = true,
+            StandardOutputEncoding = Encoding.ASCII,
+            StandardErrorEncoding = Encoding.ASCII,
             UseShellExecute = false,
             WorkingDirectory = workingDirectory ?? Environment.CurrentDirectory,
         };

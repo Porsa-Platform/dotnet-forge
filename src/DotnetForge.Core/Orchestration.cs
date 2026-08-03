@@ -382,14 +382,7 @@ public sealed class RunOrchestrator(
                 File.Delete(paths.StopFile);
             }
 
-            // --- TUI setup (dashboard only) ---
-            using var tui = new ForgeTui(runtimeRoles,
-                packId: effectiveConfiguration.SelectedPack.Id,
-                workingDirectory: effectiveConfiguration.WorkingDirectory);
-            tui.Start();
-            tui.SetStatusMessage("Launching agents via tmux…");
-
-            // Create tmux socket in /tmp (Unix-compatible filesystem needed for Git Bash).
+            // Create tmux socket in /tmp (Unix-compatible filesystem needed for WSL/Git Bash).
             // Upstream swarmforge uses /tmp/swarmforge-<user>/<hash>.sock
             var userName = Environment.GetEnvironmentVariable("USERNAME")
                 ?? Environment.GetEnvironmentVariable("USER")
@@ -406,6 +399,13 @@ public sealed class RunOrchestrator(
 
             // Kill any leftover sessions from previous runs
             try { RunTmux($"-S \"{tmuxSocket}\" list-sessions", throwOnError: false); } catch { }
+
+            // --- TUI setup (interactive dashboard with peek & input) ---
+            using var tui = new ForgeTui(runtimeRoles, commandRunner, tmuxSocket,
+                packId: effectiveConfiguration.SelectedPack.Id,
+                workingDirectory: effectiveConfiguration.WorkingDirectory);
+            tui.Start();
+            tui.SetStatusMessage("Launching agents via tmux…");
 
             var delay = effectiveConfiguration.ProjectConfiguration.AgentStartDelayMs;
 
@@ -453,12 +453,14 @@ public sealed class RunOrchestrator(
             var daemonCts = new CancellationTokenSource();
             var daemonTask = handoffDaemon.RunAsync(effectiveConfiguration.WorkingDirectory, daemonCts.Token, notifier);
 
-            tui.SetStatusMessage("All agents launched. Monitoring… (dotnet-forge stop to quit)");
+            tui.SetStatusMessage("All agents launched. ↑↓/jk:select  Enter:peek  i:send  q:quit");
 
             // --- Monitoring loop ---
             try
             {
-                while (!cancellationToken.IsCancellationRequested && !File.Exists(paths.StopFile))
+                while (!cancellationToken.IsCancellationRequested
+                       && !File.Exists(paths.StopFile)
+                       && !tui.QuitRequested)
                 {
                     await Task.Delay(1000, cancellationToken);
                 }
@@ -470,7 +472,18 @@ public sealed class RunOrchestrator(
             daemonCts.Cancel();
             try { await daemonTask; } catch (OperationCanceledException) { }
 
-            // Kill all tmux sessions
+            // Kill all tmux sessions and their child processes
+            foreach (var role in runtimeRoles)
+            {
+                try
+                {
+                    // First, send Ctrl+C to each pane to gracefully stop agents
+                    RunTmux($"-S \"{tmuxSocket}\" send-keys -t \"{role.Session}\" C-c", throwOnError: false);
+                }
+                catch { }
+            }
+            // Give processes a moment to exit gracefully
+            await Task.Delay(500, CancellationToken.None);
             foreach (var role in runtimeRoles)
             {
                 try
@@ -601,7 +614,22 @@ public sealed class StopOrchestrator(RuntimeStateStore runtimeStateStore, IComma
         if (File.Exists(paths.TmuxSocketFile))
         {
             var socket = File.ReadAllText(paths.TmuxSocketFile).Trim();
-            foreach (var role in runtimeStateStore.LoadRoles(workingDirectory))
+            var roles = runtimeStateStore.LoadRoles(workingDirectory);
+
+            // First send Ctrl+C to gracefully stop agents
+            foreach (var role in roles)
+            {
+                try
+                {
+                    RunTmux($"-S \"{socket}\" send-keys -t \"{role.Session}\" C-c", throwOnError: false);
+                }
+                catch { }
+            }
+            // Brief wait for graceful shutdown
+            Thread.Sleep(300);
+
+            // Then kill the sessions
+            foreach (var role in roles)
             {
                 try
                 {
